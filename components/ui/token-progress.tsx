@@ -110,8 +110,8 @@ export function TokenProgress({
         indicatorClassName="bg-gradient-to-r from-[#F0B90B] to-[#FCD435]"
       />
 
-      <div className="mt-10 p-1 md:p-8">
-        <h2 className="text-xl mb-8 text-white ">Step 1 - <span className=" text-gray-400">
+      <div className="pt-10 p-1 md:p-8">
+        <h2 className="text-sm md:text-xl mb-8 text-white ">Step 1 - <span className=" text-gray-400">
           Select the Payment Method (BEP20)
         </span> </h2>
 
@@ -129,7 +129,7 @@ export function TokenProgress({
           ))}
         </div>
 
-        <h2 className="text-xl mb-8 text-white ">Step 2 - <span className=" text-gray-400">
+        <h2 className="text-sm md:text-xl mb-8 text-white ">Step 2 - <span className=" text-gray-400">
           Enter the Amount of Token You Would Like to Purchase
         </span> </h2>
 

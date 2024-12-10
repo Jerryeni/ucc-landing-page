@@ -16,7 +16,7 @@ const Progress = React.forwardRef<
   const dynamicTokensSold = Math.round((progressPercentage / 100) * totalTokens); // Calculate tokens sold based on progress
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full ">
       <ProgressPrimitive.Root
         ref={ref}
         className={cn(
@@ -58,7 +58,7 @@ const Progress = React.forwardRef<
         >
           <div className="bg-[#2a2a2a] border border-gray-500 border-opacity-40 rounded-xl py-2 px-4 shadow-lg">
             <div className="text-center">
-              <div className="text-lg md:text-xl font-bold text-white">
+              <div className="text-sm md:text-xl font-bold text-white">
                 {dynamicTokensSold.toLocaleString()} UCC
               </div>
               <div className="text-xs md:text-sm text-gray-400">

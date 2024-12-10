@@ -32,8 +32,9 @@ export function Navbar() {
               <Link
                 key={item.label}
                 href={item.href}
-                className={`text-gray-300 hover:text-white transition-colors text-sm ${item.label === "Home" ? "text-secondary rounded-lg" : ""
-                  }`}
+                className={`text-primary hover:text-white transition-colors text-sm ${
+                  item.label === "Home" ? "text-secondary rounded-lg" : ""
+                }`}
               >
                 {item.label}
               </Link>
@@ -75,64 +76,67 @@ export function Navbar() {
               <Menu className="h-6 w-6" />
             </Button>
 
-            {isOpen && (
-              <div className="fixed inset-0 bg-black z-50 animate-slide-down">
-                <div className="p-4 relative bg-dark flex flex-col h-full">
-                  {/* Close Button and Logo */}
-                  <div className="flex justify-between items-center mb-8">
-                    <div className="flex items-center space-x-2">
-                      <Image
-                        src="/images/icon.png"
-                        alt="ucc-logo"
-                        width={24}
-                        height={24}
-                      />
-                      <span className="text-white text-lg font-normal">ucc</span>
-                    </div>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => setIsOpen(false)}
-                      className="text-white"
-                    >
-                      <X className="h-6 w-6" />
-                    </Button>
+            {/* Mobile Menu */}
+            <div
+              className={`fixed inset-0 bg-black bg-opacity-90 z-50 transform transition-transform duration-300 ${
+                isOpen ? "translate-x-0" : "translate-x-full"
+              }`}
+            >
+              <div className="p-4 relative bg-dark flex flex-col h-full">
+                <div className="flex justify-between items-center mb-8">
+                  <div className="flex items-center space-x-2">
+                    <Image
+                      src="/images/icon.png"
+                      alt="ucc-logo"
+                      width={24}
+                      height={24}
+                    />
+                    <span className="text-white text-lg font-normal">ucc</span>
                   </div>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => setIsOpen(false)}
+                    className="text-white"
+                  >
+                    <X className="h-6 w-6" />
+                  </Button>
+                </div>
 
-                  {/* Navigation Links */}
-                  <nav className="flex flex-col space-y-6 text-center">
-                    {NAV_ITEMS.map((item) => (
-                      <Link
-                        key={item.label}
-                        href={item.href}
-                        className={`text-lg text-gray-300 hover:text-white ${item.label === "Home" ? "text-primary" : ""
-                          }`}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </nav>
+                {/* Navigation Links */}
+                <nav className="flex flex-col space-y-6 text-center">
+                  {NAV_ITEMS.map((item) => (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      className={`text-lg text-gray-300 hover:text-white ${
+                        item.label === "Home" ? "text-primary" : ""
+                      }`}
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </nav>
 
-                  {/* Buttons in Mobile Menu */}
-                  <div className="mt-auto space-y-6">
-                    <div className="flex flex-col items-center space-y-4">
-                      <Button
-                        variant="outline"
-                        className="bg-white text-black hover:bg-gray-100 rounded-lg w-full"
-                      >
-                        λ Console
-                      </Button>
-                      <Button
-                        className="bg-primary hover:bg-secondary text-black rounded-lg w-full"
-                      >
-                        connect wallet
-                      </Button>
-                    </div>
+                {/* Buttons in Mobile Menu */}
+                <div className="mt-auto space-y-6">
+                  <div className="flex flex-col items-center space-y-4">
+                    <Button
+                      variant="outline"
+                      className="bg-white text-black hover:bg-gray-100 rounded-lg w-full"
+                    >
+                      λ Console
+                    </Button>
+                    <Button
+                      className="bg-primary hover:bg-secondary text-black rounded-lg w-full"
+                    >
+                      connect wallet
+                    </Button>
                   </div>
                 </div>
               </div>
-            )}
+            </div>
           </div>
         </div>
       </div>
