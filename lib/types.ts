@@ -1,30 +1,112 @@
-export interface TokenSale {
-  id: string;
-  fromAmount: string;
-  fromCurrency: string;
-  toAmount: string;
-  timeAgo: string;
-}
-
-export interface ICOPhase {
-  phase: number;
-  nextPhaseDate: Date;
-  usdtRaised: number;
-  listingDate: string;
-  holders: number;
-  tokenPrice: number;
-  totalTokensSold: number;
-}
-
-export interface SupportedToken {
-  symbol: string;
-  name: string;
-  icon: string;
-}
-
 export interface CountdownTime {
   days: number;
   hours: number;
   minutes: number;
   seconds: number;
 }
+
+export interface ICOStats {
+  usdtRaised: number;
+  listingDate: string;
+  holders: number;
+  currentPhase: number;
+  tokenPrice: number;
+  totalTokensSold: number;
+}
+
+export interface TokenInfo {
+  symbol: string;
+  name: string;
+  icon: string;
+  decimals: number;
+}
+
+export interface SaleTransaction {
+  fromAmount: string;
+  fromCurrency: string;
+  toAmount: string;
+  timestamp: number;
+  txHash: string;
+}
+
+export interface TradingStats {
+  monthsInDevelopment: number;
+  totalModels: number;
+  activeUsers: number;
+  averageReturn: number;
+}
+
+export interface ICOPhase {
+  id: number;
+  name: string;
+  price: number;
+  minPurchase: number;
+  maxPurchase: number;
+  hardCap: number;
+  startDate: string;
+  endDate: string;
+  nextPhaseIncrease: number;
+}
+
+export interface DistributionCategory {
+  category: string;
+  percentage: number;
+  amount: number;
+}
+
+export interface TokenDistribution {
+  totalSupply: number;
+  distribution: DistributionCategory[];
+}
+
+export interface VestingParams {
+  cliff: number;    
+  duration: number; 
+  tge: number;      
+}
+
+export interface VestingSchedule {
+  publicSale: VestingParams;
+  team: VestingParams;
+  advisors: VestingParams;
+  development: VestingParams;
+  marketing: VestingParams;
+}
+
+export interface NetworkConfig {
+  chainId: number;
+  rpcUrl: string;
+  blockExplorer: string;
+}
+
+export interface ICOConfig {
+  name: string;
+  symbol: string;
+  decimals: number;
+  contractAddress: {
+    bsc: string;
+    ethereum: string;
+  };
+  referralBonus: number;
+  phases: ICOPhase[];
+  tokenDistribution: TokenDistribution;
+  vestingSchedule: VestingSchedule;
+  networks: {
+    bsc: NetworkConfig;
+    ethereum: NetworkConfig;
+  };
+  socials: {
+    telegram: string;
+    twitter: string;
+    medium: string;
+    github: string;
+  };
+}
+
+export type TokenSale = {
+  id: string;
+  fromAmount: string;
+  fromCurrency: string;
+  toAmount: string;
+  timeAgo: string;
+};

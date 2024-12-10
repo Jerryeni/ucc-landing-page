@@ -12,23 +12,25 @@ import StakingSection from '@/components/sections/StakingSection';
 import TeamSection from '@/components/sections/TeamSection';
 import CommunitySection from '@/components/sections/CommunitySection';
 import FAQ from '@/components/sections/FAQ';
+import { Navbar } from '@/components/layout/Navbar';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-black text-white">
-      <div className="container mx-auto px-4 space-y-20x">
+    <main className="min-h-screen bg-black text-white overflow-hidden">
+      <div className="container mx-auto px-0 md:px-4 space-y-20x">
+        {/* <Navbar /> */}
         <Hero />
-        <TechPartners />
-        <div className="grid md:grid-cols-2 gap-8">
+        {/* <TechPartners /> */}
+        {/* <div className="grid md:grid-cols-2 gap-8">
           <TradingStats />
           <LiveSales />
-        </div>
-        <EventBanner />
+        </div> */}
+        {/* <EventBanner />
         <DividendInfo />
         <StakingSection />
         <TeamSection />
-        <CommunitySection />
-        <FAQ />
+        <CommunitySection /> */}
+        {/* <FAQ /> */}
       </div>
       <Footer />
     </main>

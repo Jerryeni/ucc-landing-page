@@ -27,7 +27,7 @@ export function MobileMenu() {
               <div className="flex items-center space-x-2">
                 <div className="w-8 h-8">λ</div>
                 <Button 
-                  className="bg-[#ff4d4d] hover:bg-[#ff3333] text-white"
+                  className="bg-primary hover:bg-primary text-white"
                 >
                   Connect Wallet
                 </Button>
@@ -48,7 +48,7 @@ export function MobileMenu() {
                   key={item.label}
                   href={item.href}
                   className={`${
-                    item.label === "Home" ? "text-[#ff4d4d]" : "text-gray-400"
+                    item.label === "Home" ? "text-text-gray-400" : "text-primary"
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
@@ -67,20 +67,7 @@ export function MobileMenu() {
                 </Button>
               </div>
 
-              <div className="grid grid-cols-2 gap-4 text-gray-400">
-                <Link href="#" className="flex items-center space-x-2">
-                  <X className="h-5 w-5" /> <span>X</span>
-                </Link>
-                <Link href="#" className="flex items-center space-x-2">
-                  <span className="text-[#229ED9]">○</span> <span>Telegram</span>
-                </Link>
-                <Link href="#" className="flex items-center space-x-2">
-                  <span className="text-[#229ED9]">○</span> <span>Chat</span>
-                </Link>
-                <Link href="#" className="flex items-center space-x-2">
-                  <span>◉</span> <span>Medium</span>
-                </Link>
-              </div>
+             
             </div>
           </div>
         </div>

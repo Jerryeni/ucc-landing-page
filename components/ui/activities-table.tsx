@@ -31,7 +31,7 @@ export function ActivitiesTable({ activities }: ActivitiesTableProps) {
           {activities.map((activity) => (
             <TableRow 
               key={activity.id}
-              className="border-b border-[#F0B90B]/20 bg-black/20 hover:bg-[#F0B90B]/5"
+              className="border-b text-left border-[#F0B90B]/20 bg-black/20 hover:bg-[#F0B90B]/5"
             >
               <TableCell className="font-medium">{formatDate(activity.date)}</TableCell>
               <TableCell>

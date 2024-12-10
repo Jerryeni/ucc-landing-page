@@ -1,13 +1,18 @@
 "use client";
 
 import { Progress } from "@/components/ui/progress";
-import { ChevronDown, ChevronUp, CircleDollarSign } from "lucide-react";
-import { useState } from 'react';
+import { ChevronDown, ChevronUp, CircleDollarSign, } from "lucide-react";
+import { useCallback, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { SUPPORTED_TOKENS } from '@/lib/constants';
 import { ActivitiesTable, Activity } from '@/components/ui/activities-table';
 import { ReferralStats } from "./referral-stats";
+import Image from "next/image";
+import { AmountInput } from "./amount-input";
+import { formatCurrency } from "@/lib/utils";
+import { PurchaseButton } from "./purchase-button";
+import { usePresale } from "@/hooks/usePresale";
 
 
 // Mock data for demonstration
@@ -54,19 +59,42 @@ export function TokenProgress({
 
   const [selectedToken, setSelectedToken] = useState('USDT');
   const [amount, setAmount] = useState('');
+  const { status, buyWithUSDT, buyWithBNB, resetStatus } = usePresale();
   const [showActivities, setShowActivities] = useState(false);
+
+  const handleAmountChange = (value: string) => {
+    if (value === '' || /^\d*\.?\d*$/.test(value)) {
+      setAmount(value);
+    }
+  };
+
+  const calculateTokenAmount = useCallback((inputAmount: string) => {
+    const numAmount = parseFloat(inputAmount) || 0;
+    return formatCurrency(numAmount / 0.37);
+  }, []);
+
+  const handlePurchase = async () => {
+    if (!amount) return;
+    
+    if (selectedToken === 'USDT') {
+      await buyWithUSDT(amount);
+    } else if (selectedToken === 'BNB') {
+      await buyWithBNB(amount);
+    }
+  };
 
   return (
     <div className="space-y-6 backdrop-blur-xl bg-input rounded-3xl p-6 md:p-8">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-        <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#F0B90B] to-[#FCD435] flex items-center justify-center">
-            <CircleDollarSign className="h-5 w-5 text-black" />
+        <div className="flex  items-center justify-center gap-1">
+          <div className="w-5 h-5 rounded-full bg-gradient-to-r from-[#F0B90B] to-[#FCD435] flex items-center justify-center">
+            <Image src="/images/icon.png" alt="ucc-logo" width={12} height={12} className="w-4 h-4" />
+
           </div>
           <span className="text-gray-200">1 UCC = </span>
           <div className="flex items-center gap-2">
-            <img src="/icons/usdt.svg" alt="USDT" className="w-5 h-5" />
-            <span className="text-[#F0B90B]/50 font-semibold">{tokenPrice} USDT</span>
+            <img src="/images/bnb.svg" alt="USDT" className="w-5 h-5" />
+            <span className="text-[#F0B90B] font-semibold">{tokenPrice} USDT</span>
           </div>
         </div>
         <div className="text-card/50 font-medium">
@@ -82,12 +110,12 @@ export function TokenProgress({
         indicatorClassName="bg-gradient-to-r from-[#F0B90B] to-[#FCD435]"
       />
 
-      <div className="mt-10 p-8">
+      <div className="mt-10 p-1 md:p-8">
         <h2 className="text-xl mb-8 text-white ">Step 1 - <span className=" text-gray-400">
           Select the Payment Method (BEP20)
         </span> </h2>
 
-        <div className="flex w-80 mx-auto items-center justify-center p-1 bg-card glass-card gap-4 mb-8">
+        <div className="flex w-full md:w-[40%] mx-auto items-center justify-center p-1 bg-card glass-card gap-4 mb-8">
           {Object.entries(SUPPORTED_TOKENS).map(([symbol, details]) => (
             <Button
               key={symbol}
@@ -105,30 +133,27 @@ export function TokenProgress({
           Enter the Amount of Token You Would Like to Purchase
         </span> </h2>
 
-        <div className="flex gap-4 mb-8">
-          <div className="flex-1">
-            <Input
-              type="number"
-              value={amount}
-              onChange={(e) => setAmount(e.target.value)}
-              placeholder="0"
-              className="text-xl glass-card"
-            />
-          </div>
-          <div className="flex-1">
-            <Input
-              type="number"
-              value={amount ? (Number(amount) * 0.37).toString() : ''}
-              readOnly
-              placeholder="0"
-              className="text-xl glass-card"
-            />
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-1 md:gap-4">
+          <AmountInput
+            value={amount}
+            onChange={handleAmountChange}
+            token={selectedToken}
+            tokenIcon={SUPPORTED_TOKENS[selectedToken].icon}
+          />
+          <AmountInput
+            value={amount ? calculateTokenAmount(amount) : ''}
+            onChange={() => { }}
+            token="UCC"
+            tokenIcon="/images/icon.png"
+            readOnly
+          />
         </div>
 
-        <Button className="w-full text-lg py-6" size="lg">
-          Buy $ucc
-        </Button>
+        <PurchaseButton
+          status={status}
+          onClick={handlePurchase}
+          disabled={!amount || parseFloat(amount) <= 0}
+        />
       </div>
 
       <div className="border-t border-[#F0B90B]/20 pt-6">

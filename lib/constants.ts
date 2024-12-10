@@ -1,3 +1,4 @@
+import { ICO_CONFIG } from './config/ico';
 
 export const SUPPORTED_TOKENS: Record<string, { name: string; icon: string }> = {
   USDT: { name: 'USDT', icon: '/images/tether.svg' },
@@ -15,10 +16,12 @@ export const TECH_PARTNERS = [
 
 export const NAV_ITEMS = [
   { label: 'Home', href: '/' },
-  { label: 'Dividends', href: '/dividends' },
-  { label: 'Staking', href: '/staking' },
-  { label: 'Wiki', href: '/wiki' },
-  { label: 'Blog', href: '/blog' },
-  { label: 'Socials', href: '/socials' },
-];
-export const ICO_CONTRACT_ADDRESS = '0x...'; 
+  { label: 'Dividends', href: '#' },
+  { label: 'Staking', href: '#' },
+  { label: 'Wiki', href: '#' },
+  { label: 'Blog', href: '#' },
+  { label: 'Socials', href: '#' },
+  
+]
+
+export { ICO_CONFIG };

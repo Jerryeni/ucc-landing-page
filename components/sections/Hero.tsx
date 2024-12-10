@@ -39,23 +39,25 @@ export default function Hero() {
         <p className="md:text-md text-xs  text-gray-400 mb-12">NEXT PHASE BEGINS IN</p>
 
         
-        <CountdownTimer targetDate={new Date('2025-03-04')} />
+        <CountdownTimer targetDate={new Date('2025-01-04')} />
          
 
         {/* Stats Bar */}
         <div className="w-full mt-24 max-w-4xl mx-auto backdrop-blur-xl bg-black/40 rounded-3xl border border-[#F0B90B]/20 overflow-hidden">
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#F0B90B]/10 rounded-full blur-3xl" />
+
           <div className="grid grid-cols-3 p-6">
             <div className="text-left">
-              <div className="text-sm text-gray-400 mb-1">USDT RAISED</div>
-              <div className="text-2xl font-bold text-[#F0B90B]">$673,350</div>
+              <div className="text-xs md:text-sm text-gray-400 mb-1">USDT RAISED</div>
+              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">$673,350</div>
             </div>
             <div className="text-center">
-              <div className="text-sm text-gray-400 mb-1">LISTING DATE</div>
-              <div className="text-2xl font-bold">MARCH 4, 2025</div>
+              <div className="text-xs md:text-sm text-gray-400 mb-">LISTING DATE</div>
+              <div className="text-xs md:text-2xl font-bold">MARCH 4, 2025</div>
             </div>
             <div className="text-right">
-              <div className="text-sm text-gray-400 mb-1">HOLDERS</div>
-              <div className="text-2xl font-bold text-[#F0B90B]">1,655</div>
+              <div className="text-xs md:text-sm text-gray-400 mb-1">HOLDERS</div>
+              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">1,655</div>
             </div>
           </div>
 
