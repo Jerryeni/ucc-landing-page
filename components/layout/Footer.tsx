@@ -46,7 +46,7 @@ export default function Footer() {
           </div>
 
           {/* Navigation Links */}
-          {Object.entries(FOOTER_LINKS).map(([title, links]) => (
+          {/* {Object.entries(FOOTER_LINKS).map(([title, links]) => (
             <div key={title}>
               <h3 className="font-semibold text-lg mb-4">{title}</h3>
               <ul className="space-y-3">
@@ -56,14 +56,15 @@ export default function Footer() {
                       href={link.href}
                       className="text-gray-400 hover:text-[#F0B90B] flex items-center gap-2"
                     >
-                      {/* {link.icon && <link.icon className="w-4 h-4" />} */}
                       {link.label}
                     </Link>
                   </li>
                 ))}
               </ul>
             </div>
-          ))}
+          ))} */}
+
+
         </div>
       </div>
     </footer>
