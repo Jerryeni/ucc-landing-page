@@ -107,7 +107,7 @@ export function Navbar() {
                 </div>
 
                 {/* Navigation Links */}
-                <nav className="flex flex-col space-y-6 text-center">
+                {/* <nav className="flex flex-col space-y-6 text-center">
                   {NAV_ITEMS.map((item) => (
                     <Link
                       key={item.label}
@@ -120,17 +120,17 @@ export function Navbar() {
                       {item.label}
                     </Link>
                   ))}
-                </nav>
+                </nav> */}
 
                 {/* Buttons in Mobile Menu */}
                 <div className="mt-auto space-y-6">
                   <div className="flex flex-col items-center space-y-4">
-                    <Button
+                    {/* <Button
                       variant="outline"
                       className="bg-white text-black hover:bg-gray-100 rounded-lg w-full"
                     >
                       λ Console
-                    </Button>
+                    </Button> */}
                     <Button
                       className="bg-primary hover:bg-secondary text-black rounded-lg w-full"
                     onClick={initWallet}

@@ -49,7 +49,7 @@ export function MobileMenu() {
               </Button>
             </div>
 
-            <nav className="flex flex-col space-y-6 text-2xl">
+            {/* <nav className="flex flex-col space-y-6 text-2xl">
               {NAV_ITEMS.map((item) => (
                 <Link
                   key={item.label}
@@ -62,17 +62,17 @@ export function MobileMenu() {
                   {item.label}
                 </Link>
               ))}
-            </nav>
+            </nav> */}
 
             <div className="mt-auto space-y-6">
-              <div className="flex justify-center space-x-4">
+              {/* <div className="flex justify-center space-x-4">
                 <Button variant="outline" className="flex-1">
                   λ Console
                 </Button>
                 <Button variant="outline" className="flex-1">
                   Join community <span className="ml-2">✈</span>
                 </Button>
-              </div>
+              </div> */}
 
              
             </div>
