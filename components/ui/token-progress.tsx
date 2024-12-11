@@ -177,7 +177,7 @@ export function TokenProgress({
         {showActivities && (
           <div className="mt-6 space-y-6">
             <ReferralStats
-              referralLink={"https://ucc.network/?ref="+userId}
+              referralLink={"https://ucchain.org/?ref="+userId}
               totalEarningsUSDT={b2f(userEarningsUSDT).toFixed(2)}
               totalEarningsucc={b2f(userTokens).toFixed(2)}
               totalEarningsBNB={b2f(userEarningsBNB).toFixed(2)}
