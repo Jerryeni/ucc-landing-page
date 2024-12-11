@@ -23,11 +23,11 @@ export function Navbar() {
               height={24}
               priority
             />
-            <span className="text-lg md:text-xl font-normal">ucc</span>
+            <span className="text-lg md:text-xl font-normal">UCC</span>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          {/* <div className="hidden md:flex items-center space-x-8">
             {NAV_ITEMS.map((item) => (
               <Link
                 key={item.label}
@@ -39,7 +39,7 @@ export function Navbar() {
                 {item.label}
               </Link>
             ))}
-          </div>
+          </div> */}
 
           {/* Desktop Buttons */}
           <div className="hidden md:flex items-center space-x-4">
@@ -50,7 +50,7 @@ export function Navbar() {
               λ Console
             </Button>
             <Button
-              className="bg-primary !rounded-xl hover:bg-secondary h-10 text-sm text-white inset-0"
+              className="bg-primary !rounded-xl hover:bg-secondary h-10 text-sm text-black inset-0"
             >
               Connect Wallet
             </Button>

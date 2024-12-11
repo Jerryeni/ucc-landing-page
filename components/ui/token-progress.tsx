@@ -93,7 +93,7 @@ export function TokenProgress({
           </div>
           <span className="text-gray-200">1 UCC = </span>
           <div className="flex items-center gap-2">
-            <img src="/images/bnb.svg" alt="USDT" className="w-5 h-5" />
+            <img src="/images/tether.svg" alt="USDT" className="w-5 h-5" />
             <span className="text-[#F0B90B] font-semibold">{tokenPrice} USDT</span>
           </div>
         </div>
@@ -175,7 +175,7 @@ export function TokenProgress({
             <ReferralStats
               referralLink="https://ucc.network/?ref=0x1234567890abcdef"
               totalEarningsUSDT="1,234.56 USDT"
-              totalEarningsucc="5,678.90 ucc"
+              totalEarningsucc="5,678.90 UCC"
             />
 
             <div>

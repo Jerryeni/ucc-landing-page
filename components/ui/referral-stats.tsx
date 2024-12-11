@@ -30,7 +30,7 @@ export function ReferralStats({ referralLink, totalEarningsUSDT, totalEarningsuc
           <div className="text-2xl font-bold text-[#F0B90B]">{totalEarningsUSDT}</div>
         </div>
         <div className="flex-1 bg-black/50 rounded-xl p-4 border border-[#F0B90B]/20">
-          <div className="text-sm text-gray-400 mb-1">Total Earnings (ucc)</div>
+          <div className="text-sm text-gray-400 mb-1">Total Earnings (UCC)</div>
           <div className="text-2xl font-bold text-[#F0B90B]">{totalEarningsucc}</div>
         </div>
       </div>
