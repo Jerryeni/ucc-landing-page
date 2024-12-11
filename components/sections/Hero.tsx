@@ -4,8 +4,10 @@ import { useEffect, useState } from 'react';
 import { CountdownCard } from '@/components/ui/countdown-card';
 import { TokenProgress } from '@/components/ui/token-progress';
 import { calculateTimeLeft } from '@/lib/utils';
-import { CountdownTime } from '@/lib/types';
+import { CountdownTime, UCCInfo, UserUCCInfo } from '@/lib/types';
 import { CountdownTimer } from '../ui/countdown-timer';
+import { usePresale } from '@/providers/provider';
+
 
 export default function Hero() {
   const [timeLeft, setTimeLeft] = useState<CountdownTime>({
@@ -13,6 +15,18 @@ export default function Hero() {
     hours: 1,
     minutes: 18,
     seconds: 44
+  });
+
+
+
+  const { uccInfo,userUCCInfo,initWallet,userAddress,totalTokens } = usePresale();
+
+  const [_uccInfo,setUCCInfo] = useState<UCCInfo>({
+    totalInvestmentsUSDT:0,totalInvestmentsBNB:0,totalUsers:0,priceUSDT:0,priceBNB:0,totalTokensToBEDistributed:0
+  });
+
+  const [_userUCCInfo,setUserUCCInfo] = useState<UserUCCInfo>({
+    userId:0,usersInfo:null,recentActivities:[]
   });
 
   useEffect(() => {
@@ -25,6 +39,13 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    console.log(uccInfo,userUCCInfo);
+      setUCCInfo(uccInfo);
+      setUserUCCInfo(userUCCInfo);
+
+  },[uccInfo,userUCCInfo]);
+
   return (
     <section className="relative min-h-screen pt-20 flex mb-10 flex-col items-center justify-center overflow-hidden">
       {/* Background Effects */}
@@ -34,9 +55,9 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 mt-10 text-center">
         <h1 className="md:text-5xl text-3xl font-bold mb-2 w-fit backdrop-blur-lg bg-white/100 mx-auto text-white bg-clip-text text-transparent">
-          Phase 2
+          UCC Presale
         </h1>
-        <p className="md:text-md text-xs  text-gray-400 mb-12">NEXT PHASE BEGINS IN</p>
+        <p className="md:text-md text-xs  text-gray-400 mb-12">ENDS IN</p>
 
         
         <CountdownTimer targetDate={new Date('2025-01-04')} />
@@ -49,7 +70,9 @@ export default function Hero() {
           <div className="grid grid-cols-3 p-6">
             <div className="text-left">
               <div className="text-xs md:text-sm text-gray-400 mb-1">USDT RAISED</div>
-              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">$673,350</div>
+              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">{_uccInfo.totalInvestmentsUSDT} USDT</div>
+              <div className="text-xs md:text-sm text-gray-400 mb-1">BNB RAISED</div>
+              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">{_uccInfo.totalInvestmentsBNB} BNB</div>
             </div>
             <div className="text-center">
               <div className="text-xs md:text-sm text-gray-400 mb-">LISTING DATE</div>
@@ -57,17 +80,21 @@ export default function Hero() {
             </div>
             <div className="text-right">
               <div className="text-xs md:text-sm text-gray-400 mb-1">HOLDERS</div>
-              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">1,655</div>
+              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">{parseInt(_uccInfo.totalUsers.toString())}</div>
             </div>
           </div>
 
           <div className="">
             <TokenProgress
-              tokenPrice={0.37}
-              nextPhaseIncrease={10}
-              progress={60}
-              tokensSold={3561909}
+             tokenBNBPrice={_uccInfo.priceBNB}
+             tokenUSDTPrice={_uccInfo.priceUSDT}
+             userDeposits={_userUCCInfo.usersInfo?.totalDepositUSDT ?? 0}
+             userId={_userUCCInfo.userId}
+             userTokens={_userUCCInfo.usersInfo?.totalTokens ?? 0}
+              progress={(_uccInfo.totalTokensToBEDistributed*100)/5000000}
+              tokensSold={_uccInfo.totalTokensToBEDistributed}
               totalTokens={5000000}
+              activities={_userUCCInfo.recentActivities}
             />
           </div>
         </div>

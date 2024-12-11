@@ -2,7 +2,7 @@
 
 import { Progress } from "@/components/ui/progress";
 import { ChevronDown, ChevronUp, CircleDollarSign, } from "lucide-react";
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { SUPPORTED_TOKENS } from '@/lib/constants';
@@ -12,48 +12,27 @@ import Image from "next/image";
 import { AmountInput } from "./amount-input";
 import { formatCurrency } from "@/lib/utils";
 import { PurchaseButton } from "./purchase-button";
-import { usePresale } from "@/hooks/usePresale";
-
-
-// Mock data for demonstration
-const MOCK_ACTIVITIES: Activity[] = [
-  {
-    id: '1',
-    date: new Date('2024-02-15T10:30:00'),
-    walletAddress: '0x1234567890abcdef1234567890abcdef12345678',
-    reward: '50 USDT',
-    type: 'referral'
-  },
-  {
-    id: '2',
-    date: new Date('2024-02-14T15:45:00'),
-    walletAddress: '0xabcdef1234567890abcdef1234567890abcdef12',
-    reward: '100 ucc',
-    type: 'staking'
-  },
-  {
-    id: '3',
-    date: new Date('2024-02-13T09:15:00'),
-    walletAddress: '0x7890abcdef1234567890abcdef1234567890abcd',
-    reward: '75 USDT',
-    type: 'dividend'
-  }
-];
+import { b2i, usePresale } from "@/hooks/usePresale";
 
 interface TokenProgressProps {
-  tokenPrice: number;
-  nextPhaseIncrease: number;
+  tokenUSDTPrice: number;
+  tokenBNBPrice: number;
   progress: number;
   tokensSold: number;
   totalTokens: number;
+  userId: number;
+  userDeposits: number;
+  userTokens: number;
+  activities: Activity[];
 }
 
 export function TokenProgress({
-  tokenPrice,
-  nextPhaseIncrease,
+  tokenUSDTPrice,
+  tokenBNBPrice,
   progress,
   tokensSold,
-  totalTokens
+  totalTokens,
+  userId,userDeposits,userTokens,activities
 }: TokenProgressProps) {
   const progressPercentage = (tokensSold / totalTokens) * 100;
 
@@ -64,14 +43,15 @@ export function TokenProgress({
 
   const handleAmountChange = (value: string) => {
     if (value === '' || /^\d*\.?\d*$/.test(value)) {
+      console.log(value);
       setAmount(value);
     }
   };
 
   const calculateTokenAmount = useCallback((inputAmount: string) => {
     const numAmount = parseFloat(inputAmount) || 0;
-    return formatCurrency(numAmount / 0.37);
-  }, []);
+    return formatCurrency(numAmount / (selectedToken === 'USDT' ? tokenUSDTPrice: tokenBNBPrice));
+  }, [selectedToken,tokenUSDTPrice,tokenBNBPrice]);
 
   const handlePurchase = async () => {
     if (!amount) return;
@@ -82,6 +62,16 @@ export function TokenProgress({
       await buyWithBNB(amount);
     }
   };
+
+  useEffect(
+    () => {
+    },[tokenUSDTPrice,
+      tokenBNBPrice,
+      progress,
+      tokensSold,
+      totalTokens,
+      userId,userDeposits,userTokens,activities]
+  )
 
   return (
     <div className="space-y-6 backdrop-blur-xl bg-input rounded-3xl p-6 md:p-8">
@@ -94,12 +84,22 @@ export function TokenProgress({
           <span className="text-gray-200">1 UCC = </span>
           <div className="flex items-center gap-2">
             <img src="/images/tether.svg" alt="USDT" className="w-5 h-5" />
-            <span className="text-[#F0B90B] font-semibold">{tokenPrice} USDT</span>
+            <span className="text-[#F0B90B] font-semibold">{tokenUSDTPrice} USDT</span>
           </div>
         </div>
-        <div className="text-card/50 font-medium">
-          {nextPhaseIncrease}% Increase On Next Phase
+
+        <div className="flex  items-center justify-center gap-1">
+          <div className="w-5 h-5 rounded-full bg-gradient-to-r from-[#F0B90B] to-[#FCD435] flex items-center justify-center">
+            <Image src="/images/icon.png" alt="ucc-logo" width={12} height={12} className="w-4 h-4" />
+
+          </div>
+          <span className="text-gray-200">1 UCC = </span>
+          <div className="flex items-center gap-2">
+            <img src="/images/bnb.svg" alt="USDT" className="w-5 h-5" />
+            <span className="text-[#F0B90B] font-semibold">{formatCurrency(tokenBNBPrice,4)} BNB</span>
+          </div>
         </div>
+       
       </div>
 
       <Progress
@@ -173,14 +173,14 @@ export function TokenProgress({
         {showActivities && (
           <div className="mt-6 space-y-6">
             <ReferralStats
-              referralLink="https://ucc.network/?ref=0x1234567890abcdef"
-              totalEarningsUSDT="1,234.56 USDT"
-              totalEarningsucc="5,678.90 UCC"
+              referralLink={"https://ucc.network/?ref="+userId}
+              totalEarningsUSDT={b2i(userDeposits).toString()}
+              totalEarningsucc={b2i(userTokens).toString()}
             />
 
             <div>
               <h3 className="text-lg font-medium mb-4">Recent Activities</h3>
-              <ActivitiesTable activities={MOCK_ACTIVITIES} />
+              <ActivitiesTable activities={activities} />
             </div>
           </div>
         )}

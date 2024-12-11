@@ -1,9 +1,10 @@
 import { useState, useCallback } from 'react';
-import { ethers } from 'ethers';
+import { ethers, formatUnits } from 'ethers';
 import { ADDRESSES } from '@/lib/contracts/addresses';
 import { PRESALE_ABI, ERC20_ABI } from '@/lib/contracts/abis';
 import { getWeb3Provider } from '@/lib/web3/provider';
 import { toast } from '@/components/ui/use-toast';
+import { UCCInfo, UserUCCInfo } from '@/lib/types';
 
 export enum PurchaseStatus {
   IDLE = 'IDLE',
@@ -16,31 +17,65 @@ export enum PurchaseStatus {
 
 export function usePresale() {
   const [status, setStatus] = useState<PurchaseStatus>(PurchaseStatus.IDLE);
+  const [userAddress, setUserAddress] = useState<string>("");
+  const [totalTokens, setTotalToken] = useState<number>(0);
+    const [uccInfo,setUCCInfo] = useState<UCCInfo>({
+      totalInvestmentsUSDT:0,totalInvestmentsBNB:0,totalUsers:0,priceUSDT:0,priceBNB:0,totalTokensToBEDistributed:0
+    });
+  
+    const [userUCCInfo,setUserUCCInfo] = useState<UserUCCInfo>({
+      userId:0,usersInfo:null,recentActivities:[]
+    });
 
-  const buyWithUSDT = useCallback(async (amount: string) => {
+  async function initWallet(){
     try {
-      const provider = await getWeb3Provider();
-      const signer = await provider.getSigner();
-      const userAddress = await signer.getAddress();
-      
-      // USDT Contract
-      const usdtContract = new ethers.Contract(
-        ADDRESSES.USDT,
-        ERC20_ABI,
-        signer
-      );
+      const _provider = await getWeb3Provider();
+        const _signer = await _provider.getSigner();
+        const _userAddress = await _signer.getAddress();
+  
+        // Presale Contract
+        const ps = new ethers.Contract(
+          ADDRESSES.PRESALE,
+          PRESALE_ABI,
+          _signer
+        );
+        setUserAddress(_userAddress);
 
-      // Presale Contract
-      const presaleContract = new ethers.Contract(
+        console.log(_userAddress);
+        const ucci = await getUCCInfo(ps);
+        console.log(ucci);
+        const useri = await getUserInfo(ps,_userAddress);
+        console.log(useri);
+        setUCCInfo(ucci);
+        setUserUCCInfo(useri);
+    } catch (error) {
+      console.error(error);
+    }
+      
+  };
+
+  const buyWithUSDT = async (amount: string) => {
+    try {
+      // Approve USDT
+      const _provider = await getWeb3Provider();
+        const _signer = await _provider.getSigner();
+        const _userAddress = await _signer.getAddress();
+      const ps = new ethers.Contract(
         ADDRESSES.PRESALE,
         PRESALE_ABI,
-        signer
+        _signer
       );
+      const ua  = new ethers.Contract(
+        ADDRESSES.USDT,
+        ERC20_ABI,
+        _signer
+      )
 
-      // Approve USDT
       setStatus(PurchaseStatus.APPROVING);
-      const parsedAmount = ethers.parseUnits(amount, 6); // USDT uses 6 decimals
-      const approveTx = await usdtContract.approve(
+      const parsedAmount = ethers.parseUnits(amount, 18); // USDT uses 6 decimals
+      const urlParams = new URLSearchParams(window.location.search);
+      const ref = parseInt(urlParams.get('ref') || '0') || 0;
+      const approveTx = await ua.approve(
         ADDRESSES.PRESALE,
         parsedAmount
       );
@@ -49,13 +84,18 @@ export function usePresale() {
 
       // Buy tokens
       setStatus(PurchaseStatus.PURCHASING);
-      const buyTx = await presaleContract.buy(
-        parsedAmount,
-        userAddress,
-        0, // ref
+      const buyTx = await ps.buy(
+        _userAddress,
+        ref, // ref
         parsedAmount
       );
       await buyTx.wait();
+      // Fetch and update only the necessary data
+      const ucci = await getUCCInfo(ps);
+      const useri = await getUserInfo(ps, _userAddress);
+      setUCCInfo(ucci);
+      setUserUCCInfo(useri);
+
       setStatus(PurchaseStatus.CONFIRMED);
 
       toast.success(
@@ -76,30 +116,35 @@ export function usePresale() {
         }
       );
     }
-  }, [toast]);
+  };
 
-  const buyWithBNB = useCallback(async (amount: string) => {
+  const buyWithBNB = async (amount: string) => {
     try {
-      const provider = await getWeb3Provider();
-      const signer = await provider.getSigner();
-      const userAddress = await signer.getAddress();
-      
-      const presaleContract = new ethers.Contract(
+      const _provider = await getWeb3Provider();
+        const _signer = await _provider.getSigner();
+        const _userAddress = await _signer.getAddress();
+      const ps = new ethers.Contract(
         ADDRESSES.PRESALE,
         PRESALE_ABI,
-        signer
+        _signer
       );
-
+      
       setStatus(PurchaseStatus.PURCHASING);
       const parsedAmount = ethers.parseEther(amount);
-      const buyTx = await presaleContract.buy(
-        parsedAmount,
-        userAddress,
-        0, // ref
-        parsedAmount,
+      const urlParams = new URLSearchParams(window.location.search);
+      const ref = parseInt(urlParams.get('ref') || '0') || 0;
+      const buyTx = await ps.buy(
+        _userAddress,
+        ref, // ref
+        0,
         { value: parsedAmount }
       );
       await buyTx.wait();
+      // Fetch and update only the necessary data
+      const ucci = await getUCCInfo(ps);
+      const useri = await getUserInfo(ps, _userAddress);
+      setUCCInfo(ucci);
+      setUserUCCInfo(useri);
       setStatus(PurchaseStatus.CONFIRMED);
 
       toast.success(
@@ -121,14 +166,84 @@ export function usePresale() {
         }
       );
     }
-  }, [toast]);
+  };
+
+  async function getUCCInfo(ps: ethers.Contract): Promise<UCCInfo> {
+    try {
+      const totalInvestmentsUSDT = await ps.totalInvestmentsUSDT();
+      const totalInvestmentsBNB = await ps.totalInvestmentsBNB();
+      const totalUsers = await ps.totalUsers();
+      const priceUSDT = await ps.price();
+      const priceBNB = await ps.priceBNB();
+      const totalTokensToBEDistributed = await ps.totalTokensToBEDistributed();
+      console.log({
+        totalInvestmentsUSDT: b2i(totalInvestmentsUSDT),
+        totalInvestmentsBNB: b2i(totalInvestmentsBNB),
+        totalUsers,
+        priceUSDT: b2f(priceUSDT),
+        priceBNB: b2f(priceBNB),
+        totalTokensToBEDistributed: b2i(totalTokensToBEDistributed)
+      });
+
+      setTotalToken(b2i(totalTokensToBEDistributed));
+
+      return {
+        totalInvestmentsUSDT: b2i(totalInvestmentsUSDT),
+        totalInvestmentsBNB: b2i(totalInvestmentsBNB),
+        totalUsers,
+        priceUSDT: b2f(priceUSDT),
+        priceBNB: b2f(priceBNB),
+        totalTokensToBEDistributed: b2i(totalTokensToBEDistributed)
+      }
+      
+    } catch (error: any) {
+      console.error(error);
+      return {
+        totalInvestmentsUSDT:0,totalInvestmentsBNB:0,totalUsers:0,priceUSDT:0,priceBNB:0,totalTokensToBEDistributed:0
+      };
+    }
+  }
+  
+  async function getUserInfo(ps: ethers.Contract,ua: string): Promise<UserUCCInfo> {
+    try {
+      
+      const userId = await ps.id(ua);
+      const usersInfo = await ps.usersInfo(userId);
+      const recentActivities = await ps.getRecentActivities(5);
+
+      return {
+        userId: (userId),
+        usersInfo,
+        recentActivities
+      }
+      
+    } catch (error: any) {
+      console.error(error);
+      return {
+        userId:0,usersInfo:null,recentActivities:[]
+      }
+    }
+  }
 
   const resetStatus = () => setStatus(PurchaseStatus.IDLE);
 
   return {
     status,
+    uccInfo,
+    userUCCInfo,
+    userAddress,
+    totalTokens,
     buyWithUSDT,
     buyWithBNB,
-    resetStatus
+    resetStatus,
+    initWallet
   };
+}
+
+export function b2i(amt: any): number {
+  return parseInt(formatUnits(amt,18));
+}
+
+export function b2f(amt: any): number {
+  return parseFloat(formatUnits(amt,18));
 }

@@ -2,12 +2,18 @@
 
 import { X, Menu } from "lucide-react";
 import { Button } from "../ui/button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NAV_ITEMS } from "@/lib/constants";
 import Link from "next/link";
+import { shortenAddress } from "@/lib/utils";
+import { usePresale } from "@/providers/provider";
 
 export function MobileMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const {initWallet, userAddress} = usePresale();
+
+  useEffect(() => {
+  },[userAddress]);
 
   return (
     <div className="md:hidden">
@@ -28,8 +34,9 @@ export function MobileMenu() {
                 <div className="w-8 h-8">λ</div>
                 <Button 
                   className="bg-primary hover:bg-primary text-white"
+                  onClick={initWallet}
                 >
-                  Connect Wallet
+                  {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
                 </Button>
               </div>
               <Button

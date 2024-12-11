@@ -110,3 +110,18 @@ export type TokenSale = {
   toAmount: string;
   timeAgo: string;
 };
+
+export type UCCInfo = {
+  totalInvestmentsUSDT:number;
+  totalInvestmentsBNB:number;
+  totalUsers:number;
+  priceUSDT:number;
+  priceBNB:number;
+  totalTokensToBEDistributed:number;
+}
+
+export type UserUCCInfo = {
+  userId:number;
+  usersInfo:any;
+  recentActivities:any[];
+}

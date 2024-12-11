@@ -5,10 +5,17 @@ import { Button } from "@/components/ui/button";
 import { NAV_ITEMS } from "@/lib/constants";
 import Image from "next/image";
 import { X, Menu } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { shortenAddress } from "@/lib/utils";
+import { usePresale } from "@/providers/provider";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const {initWallet,userAddress} = usePresale();
+
+
+  useEffect(() => {
+  },[userAddress]);
 
   return (
     <nav className="fixed top-3 w-full z-50">
@@ -44,15 +51,10 @@ export function Navbar() {
           {/* Desktop Buttons */}
           <div className="hidden md:flex items-center space-x-4">
             <Button
-              variant="outline"
-              className="bg-white !rounded-xl text-black hover:bg-gray-100 h-10 text-sm"
+              className="bg-primary !rounded-xl hover:bg-secondary h-10 text-sm text-white inset-0"
+              onClick={initWallet}
             >
-              λ Console
-            </Button>
-            <Button
-              className="bg-primary !rounded-xl hover:bg-secondary h-10 text-sm text-black inset-0"
-            >
-              Connect Wallet
+              {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
             </Button>
           </div>
 
@@ -60,8 +62,9 @@ export function Navbar() {
           <div className="md:hidden">
             <Button
               className="bg-primary text-black hover:text-white rounded-lg hover:bg-secondary h-8 text-sm px-4"
+              onClick={initWallet}
             >
-              Connect Wallet
+              {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
             </Button>
           </div>
 
@@ -130,8 +133,9 @@ export function Navbar() {
                     </Button>
                     <Button
                       className="bg-primary hover:bg-secondary text-black rounded-lg w-full"
+                    onClick={initWallet}
                     >
-                      connect wallet
+                      {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
                     </Button>
                   </div>
                 </div>
