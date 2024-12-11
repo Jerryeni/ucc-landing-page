@@ -29,7 +29,7 @@ export function CountdownTimer({ targetDate }: CountdownProps) {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [targetDate]);
+  }, []);
 
   return (
     <div className="flex gap-2 md:gap-4 justify-center">

@@ -30,7 +30,7 @@ export default function Hero() {
   // });
 
   useEffect(() => {
-    const targetDate = new Date('2024-03-04T00:00:00');
+    const targetDate = new Date('2024-12-31T00:00:00');
     
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft(targetDate));
@@ -72,7 +72,7 @@ export default function Hero() {
               <div className="text-xs md:text-sm text-gray-400 mb-1">USDT RAISED</div>
               <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">{uccInfo.totalInvestmentsUSDT} USDT</div>
               <div className="text-xs md:text-sm text-gray-400 mb-1">BNB RAISED</div>
-              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">{uccInfo.totalInvestmentsBNB} BNB</div>
+              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">{(uccInfo.totalInvestmentsBNB).toFixed(4)} BNB</div>
             </div>
             <div className="text-center">
               <div className="text-xs md:text-sm text-gray-400 mb-">LISTING DATE</div>
@@ -88,7 +88,10 @@ export default function Hero() {
             <TokenProgress
              tokenBNBPrice={uccInfo.priceBNB}
              tokenUSDTPrice={uccInfo.priceUSDT}
-             userDeposits={userUCCInfo.usersInfo?.totalDepositUSDT ?? 0}
+             userDepositsUSDT={userUCCInfo.usersInfo?.totalDepositUSDT ?? 0}
+             userDepositsBNB={userUCCInfo.usersInfo?.totalDepositBNB ?? 0}
+             userEarningsBNB={userUCCInfo.usersInfo?.refIncomeBNB ?? 0}
+             userEarningsUSDT={userUCCInfo.usersInfo?.refIncomeUSDT ?? 0}
              userId={userUCCInfo.userId}
              userTokens={userUCCInfo.usersInfo?.totalTokens ?? 0}
               progress={(uccInfo.totalTokensToBEDistributed*100)/5000000}

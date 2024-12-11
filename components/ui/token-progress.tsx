@@ -12,7 +12,7 @@ import Image from "next/image";
 import { AmountInput } from "./amount-input";
 import { formatCurrency } from "@/lib/utils";
 import { PurchaseButton } from "./purchase-button";
-import { b2i, usePresale } from "@/hooks/usePresale";
+import { b2f, b2i, usePresale } from "@/hooks/usePresale";
 
 interface TokenProgressProps {
   tokenUSDTPrice: number;
@@ -21,7 +21,10 @@ interface TokenProgressProps {
   tokensSold: number;
   totalTokens: number;
   userId: number;
-  userDeposits: number;
+  userDepositsUSDT: number;
+  userDepositsBNB: number;
+  userEarningsBNB: number;
+  userEarningsUSDT: number;
   userTokens: number;
   activities: Activity[];
   activitiesLength: number;
@@ -33,7 +36,7 @@ export function TokenProgress({
   progress,
   tokensSold,
   totalTokens,activitiesLength,
-  userId,userDeposits,userTokens,activities
+  userId,userDepositsUSDT,userDepositsBNB,userEarningsBNB,userEarningsUSDT,userTokens,activities
 }: TokenProgressProps) {
   const progressPercentage = (tokensSold / totalTokens) * 100;
 
@@ -71,7 +74,7 @@ export function TokenProgress({
       progress,
       tokensSold,
       totalTokens,
-      userId,userDeposits,userTokens,activities]
+      userId,userDepositsUSDT,userDepositsBNB,userEarningsBNB,userEarningsUSDT,userTokens,activities]
   )
 
   return (
@@ -175,8 +178,11 @@ export function TokenProgress({
           <div className="mt-6 space-y-6">
             <ReferralStats
               referralLink={"https://ucc.network/?ref="+userId}
-              totalEarningsUSDT={b2i(userDeposits).toString()}
-              totalEarningsucc={b2i(userTokens).toString()}
+              totalEarningsUSDT={b2f(userEarningsUSDT).toFixed(2)}
+              totalEarningsucc={b2f(userTokens).toFixed(2)}
+              totalEarningsBNB={b2f(userEarningsBNB).toFixed(2)}
+              totalDepositBNB={b2f(userDepositsBNB).toFixed(2)}
+              totalDepositUSDT={b2f(userDepositsUSDT).toFixed(2)}
             />
 
             <div>

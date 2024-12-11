@@ -104,11 +104,12 @@ export function usePresale() {
           position: "top-right",
         }
       );
+      setStatus(PurchaseStatus.IDLE);
     } catch (error: any) {
-      console.error(error);
+      console.log(error.reason);
       setStatus(PurchaseStatus.ERROR);
       toast.error(
-        "Purchase failed!",
+        error.reason,
         {
           duration: 3000,
           position: "top-right",
@@ -130,6 +131,7 @@ export function usePresale() {
 
       setStatus(PurchaseStatus.PURCHASING);
       const parsedAmount = ethers.parseEther(amount);
+      console.log(parsedAmount);
       const urlParams = new URLSearchParams(window.location.search);
       const ref = parseInt(urlParams.get('ref') || '0') || 0;
       const buyTx = await ps.buy(
@@ -153,12 +155,13 @@ export function usePresale() {
           position: "top-right",
         }
       );
+      setStatus(PurchaseStatus.IDLE);
 
     } catch (error: any) {
-      console.error(error);
+      console.log(error.reason);
       setStatus(PurchaseStatus.ERROR);
       toast.error(
-        "Purchase failed!",
+        error.reason,
         {
           duration: 3000,
           position: "top-right",
@@ -181,7 +184,7 @@ export function usePresale() {
 
       return {
         totalInvestmentsUSDT: b2i(totalInvestmentsUSDT),
-        totalInvestmentsBNB: b2i(totalInvestmentsBNB),
+        totalInvestmentsBNB: b2f(totalInvestmentsBNB),
         totalUsers,
         priceUSDT: b2f(priceUSDT),
         priceBNB: b2f(priceBNB),
