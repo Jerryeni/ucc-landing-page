@@ -19,7 +19,7 @@ export default function Hero() {
 
 
 
-  const { uccInfo,userUCCInfo,initWallet,userAddress,totalTokens } = usePresale();
+  const { uccInfo, userUCCInfo, initWallet, userAddress, totalTokens } = usePresale();
 
   // const [_uccInfo,setUCCInfo] = useState<UCCInfo>({
   //   totalInvestmentsUSDT:0,totalInvestmentsBNB:0,totalUsers:0,priceUSDT:0,priceBNB:0,totalTokensToBEDistributed:0
@@ -31,7 +31,7 @@ export default function Hero() {
 
   useEffect(() => {
     const targetDate = new Date('2024-12-31T00:00:00');
-    
+
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft(targetDate));
     }, 1000);
@@ -44,14 +44,14 @@ export default function Hero() {
     //   setUCCInfo(uccInfo);
     //   setUserUCCInfo(userUCCInfo);
 
-  },[userAddress,totalTokens,uccInfo,userUCCInfo]);
+  }, [userAddress, totalTokens, uccInfo, userUCCInfo]);
 
   return (
     <section className="relative min-h-screen pt-20 flex mb-10 flex-col items-center justify-center overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(240,185,11,0.15),transparent_70%)]" />
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#F0B90B]/10 rounded-full blur-3xl" />
-      
+
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 mt-10 text-center">
         <h1 className="md:text-5xl text-3xl font-bold mb-2 w-fit backdrop-blur-lg bg-white/100 mx-auto text-white bg-clip-text text-transparent">
@@ -59,13 +59,13 @@ export default function Hero() {
         </h1>
         <p className="md:text-md text-xs  text-gray-400 mb-12">ENDS IN</p>
 
-        
+
         <CountdownTimer targetDate={new Date('2025-01-04')} />
-         
+
 
         {/* Stats Bar */}
         <div className="w-full mt-24 max-w-4xl mx-auto backdrop-blur-xl bg-black/40 rounded-3xl border border-[#F0B90B]/20 overflow-hidden">
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#F0B90B]/10 rounded-full blur-3xl" />
+          <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#F0B90B]/10 rounded-full blur-3xl" />
 
           <div className="grid grid-cols-3 p-6">
             <div className="text-left">
@@ -86,15 +86,15 @@ export default function Hero() {
 
           <div className="">
             <TokenProgress
-             tokenBNBPrice={uccInfo.priceBNB}
-             tokenUSDTPrice={uccInfo.priceUSDT}
-             userDepositsUSDT={userUCCInfo.usersInfo?.totalDepositUSDT ?? 0}
-             userDepositsBNB={userUCCInfo.usersInfo?.totalDepositBNB ?? 0}
-             userEarningsBNB={userUCCInfo.usersInfo?.refIncomeBNB ?? 0}
-             userEarningsUSDT={userUCCInfo.usersInfo?.refIncomeUSDT ?? 0}
-             userId={userUCCInfo.userId}
-             userTokens={userUCCInfo.usersInfo?.totalTokens ?? 0}
-              progress={(uccInfo.totalTokensToBEDistributed*100)/5000000}
+              tokenBNBPrice={uccInfo.priceBNB}
+              tokenUSDTPrice={uccInfo.priceUSDT}
+              userDepositsUSDT={userUCCInfo.usersInfo?.totalDepositUSDT ?? 0}
+              userDepositsBNB={userUCCInfo.usersInfo?.totalDepositBNB ?? 0}
+              userEarningsBNB={userUCCInfo.usersInfo?.refIncomeBNB ?? 0}
+              userEarningsUSDT={userUCCInfo.usersInfo?.refIncomeUSDT ?? 0}
+              userId={userUCCInfo.userId}
+              userTokens={userUCCInfo.usersInfo?.totalTokens ?? 0}
+              progress={(uccInfo.totalTokensToBEDistributed * 100) / 5000000}
               tokensSold={uccInfo.totalTokensToBEDistributed}
               totalTokens={5000000}
               activities={userUCCInfo.recentActivities}

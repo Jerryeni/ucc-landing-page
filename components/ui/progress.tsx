@@ -8,69 +8,83 @@ const Progress = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ProgressPrimitive.Root> & {
     indicatorClassName?: string;
-    tokensSold: number; 
-    totalTokens: number; 
+    tokensSold: number;
+    totalTokens: number;
   }
->(({ className, value, indicatorClassName, tokensSold, totalTokens, ...props }, ref) => {
-  const progressPercentage = (value || 0); // Ensure value is defined
-  const dynamicTokensSold = Math.round((progressPercentage / 100) * totalTokens); // Calculate tokens sold based on progress
+>(
+  (
+    {
+      className,
+      value = 0, 
+      indicatorClassName,
+      tokensSold,
+      totalTokens,
+      ...props
+    },
+    ref
+  ) => {
+    const progressPercentage = value || 0 ;
+    const dynamicTokensSold = Math.round(
+      (progressPercentage / 100) * totalTokens
+    );
 
-  return (
-    <div className="relative w-full ">
-      <ProgressPrimitive.Root
-        ref={ref}
-        className={cn(
-          "relative h-2 w-full overflow-hidden rounded-full",
-          className
-        )}
-        {...props}
-      >
-        {/* Progress bar indicator */}
-        <ProgressPrimitive.Indicator
+    return (
+      <div className="relative w-full">
+        <ProgressPrimitive.Root
+          ref={ref}
           className={cn(
-            "h-full w-full flex-1 transition-all duration-500 ease-in-out",
-            indicatorClassName
+            "relative h-2 w-full overflow-hidden rounded-full",
+            className
           )}
-          style={{
-            transform: `translateX(-${100 - progressPercentage}%)`,
-          }}
-        />
-      </ProgressPrimitive.Root>
-
-      {/* White dot */}
-      {value !== undefined && (
-        <div
-          className="absolute top-1/2 -translate-y-1/2 bg-white rounded-full"
-          style={{
-            width: "16px",
-            height: "16px",
-            left: `calc(${progressPercentage}% - 8px)`,
-          }}
-        />
-      )}
-
-      {value !== undefined && (
-        <div
-          className="absolute top-8 left-0 transform"
-          style={{
-            left: `calc(${progressPercentage}% - 50px)`, 
-          }}
+          {...props}
         >
-          <div className="bg-[#2a2a2a] border border-gray-500 border-opacity-40 rounded-xl py-2 px-4 shadow-lg">
-            <div className="text-center">
-              <div className="text-sm md:text-xl font-bold text-white">
-                {dynamicTokensSold.toLocaleString()} UCC
-              </div>
-              <div className="text-xs md:text-sm text-gray-400">
-                TOKENS SOLD
+          {/* Progress bar indicator */}
+          <ProgressPrimitive.Indicator
+            className={cn(
+              "h-full w-full flex-1 transition-all duration-500 ease-in-out",
+              indicatorClassName
+            )}
+            style={{
+              transform: `translateX(-${100 - progressPercentage}%)`,
+            }}
+          />
+        </ProgressPrimitive.Root>
+
+        {/* White dot */}
+        {value !== undefined && (
+          <div
+            className="absolute top-1/2 -translate-y-1/2 bg-white rounded-full"
+            style={{
+              width: "24px",
+              height: "24px",
+              left: `calc(${progressPercentage}% - 12px)`,
+            }}
+          />
+        )}
+
+        {value !== undefined && (
+          <div
+            className="absolute top-8 ml-8 break-words flex-wrap transform"
+            style={{
+              left: `calc(${progressPercentage}% - 50px)`,
+            }}
+          >
+            <div className="bg-[#2a2a2a] border border-gray-500 border-opacity-40 rounded-xl py-1 px-2 shadow-lg">
+              <div className="text-center">
+                <div className="text-xs md:text-sm font-bold text-white">
+                  {dynamicTokensSold.toLocaleString()} UCC
+                </div>
+                <div className="text-[8px] md:text-xs text-gray-400">
+                  TOKENS SOLD
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
-});
+        )}
+      </div>
+    );
+  }
+);
 
 Progress.displayName = ProgressPrimitive.Root.displayName;
 
