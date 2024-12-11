@@ -21,13 +21,13 @@ export default function Hero() {
 
   const { uccInfo,userUCCInfo,initWallet,userAddress,totalTokens } = usePresale();
 
-  const [_uccInfo,setUCCInfo] = useState<UCCInfo>({
-    totalInvestmentsUSDT:0,totalInvestmentsBNB:0,totalUsers:0,priceUSDT:0,priceBNB:0,totalTokensToBEDistributed:0
-  });
+  // const [_uccInfo,setUCCInfo] = useState<UCCInfo>({
+  //   totalInvestmentsUSDT:0,totalInvestmentsBNB:0,totalUsers:0,priceUSDT:0,priceBNB:0,totalTokensToBEDistributed:0
+  // });
 
-  const [_userUCCInfo,setUserUCCInfo] = useState<UserUCCInfo>({
-    userId:0,usersInfo:null,recentActivities:[]
-  });
+  // const [_userUCCInfo,setUserUCCInfo] = useState<UserUCCInfo>({
+  //   userId:0,usersInfo:null,recentActivities:[],activityLength:0
+  // });
 
   useEffect(() => {
     const targetDate = new Date('2024-03-04T00:00:00');
@@ -40,11 +40,11 @@ export default function Hero() {
   }, []);
 
   useEffect(() => {
-    console.log(uccInfo,userUCCInfo);
-      setUCCInfo(uccInfo);
-      setUserUCCInfo(userUCCInfo);
+    // console.log(uccInfo,userUCCInfo);
+    //   setUCCInfo(uccInfo);
+    //   setUserUCCInfo(userUCCInfo);
 
-  },[uccInfo,userUCCInfo]);
+  },[userAddress,totalTokens,uccInfo,userUCCInfo]);
 
   return (
     <section className="relative min-h-screen pt-20 flex mb-10 flex-col items-center justify-center overflow-hidden">
@@ -70,9 +70,9 @@ export default function Hero() {
           <div className="grid grid-cols-3 p-6">
             <div className="text-left">
               <div className="text-xs md:text-sm text-gray-400 mb-1">USDT RAISED</div>
-              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">{_uccInfo.totalInvestmentsUSDT} USDT</div>
+              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">{uccInfo.totalInvestmentsUSDT} USDT</div>
               <div className="text-xs md:text-sm text-gray-400 mb-1">BNB RAISED</div>
-              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">{_uccInfo.totalInvestmentsBNB} BNB</div>
+              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">{uccInfo.totalInvestmentsBNB} BNB</div>
             </div>
             <div className="text-center">
               <div className="text-xs md:text-sm text-gray-400 mb-">LISTING DATE</div>
@@ -80,21 +80,22 @@ export default function Hero() {
             </div>
             <div className="text-right">
               <div className="text-xs md:text-sm text-gray-400 mb-1">HOLDERS</div>
-              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">{parseInt(_uccInfo.totalUsers.toString())}</div>
+              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">{parseInt(uccInfo.totalUsers.toString())}</div>
             </div>
           </div>
 
           <div className="">
             <TokenProgress
-             tokenBNBPrice={_uccInfo.priceBNB}
-             tokenUSDTPrice={_uccInfo.priceUSDT}
-             userDeposits={_userUCCInfo.usersInfo?.totalDepositUSDT ?? 0}
-             userId={_userUCCInfo.userId}
-             userTokens={_userUCCInfo.usersInfo?.totalTokens ?? 0}
-              progress={(_uccInfo.totalTokensToBEDistributed*100)/5000000}
-              tokensSold={_uccInfo.totalTokensToBEDistributed}
+             tokenBNBPrice={uccInfo.priceBNB}
+             tokenUSDTPrice={uccInfo.priceUSDT}
+             userDeposits={userUCCInfo.usersInfo?.totalDepositUSDT ?? 0}
+             userId={userUCCInfo.userId}
+             userTokens={userUCCInfo.usersInfo?.totalTokens ?? 0}
+              progress={(uccInfo.totalTokensToBEDistributed*100)/5000000}
+              tokensSold={uccInfo.totalTokensToBEDistributed}
               totalTokens={5000000}
-              activities={_userUCCInfo.recentActivities}
+              activities={userUCCInfo.recentActivities}
+              activitiesLength={userUCCInfo.activityLength}
             />
           </div>
         </div>

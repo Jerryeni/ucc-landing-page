@@ -124,4 +124,5 @@ export type UserUCCInfo = {
   userId:number;
   usersInfo:any;
   recentActivities:any[];
+  activityLength: any;
 }

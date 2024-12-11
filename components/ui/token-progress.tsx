@@ -24,6 +24,7 @@ interface TokenProgressProps {
   userDeposits: number;
   userTokens: number;
   activities: Activity[];
+  activitiesLength: number;
 }
 
 export function TokenProgress({
@@ -31,7 +32,7 @@ export function TokenProgress({
   tokenBNBPrice,
   progress,
   tokensSold,
-  totalTokens,
+  totalTokens,activitiesLength,
   userId,userDeposits,userTokens,activities
 }: TokenProgressProps) {
   const progressPercentage = (tokensSold / totalTokens) * 100;
@@ -84,7 +85,7 @@ export function TokenProgress({
           <span className="text-gray-200">1 UCC = </span>
           <div className="flex items-center gap-2">
             <img src="/images/tether.svg" alt="USDT" className="w-5 h-5" />
-            <span className="text-[#F0B90B] font-semibold">{tokenUSDTPrice} USDT</span>
+            <span className="text-[#F0B90B] font-semibold">{formatCurrency(tokenUSDTPrice,3)} USDT</span>
           </div>
         </div>
 
@@ -180,7 +181,7 @@ export function TokenProgress({
 
             <div>
               <h3 className="text-lg font-medium mb-4">Recent Activities</h3>
-              <ActivitiesTable activities={activities} />
+              <ActivitiesTable activities={activities} length={activitiesLength}/>
             </div>
           </div>
         )}

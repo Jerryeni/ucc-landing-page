@@ -334,7 +334,12 @@ export const PRESALE_ABI =
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_num",
+				"name": "_id",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_page",
 				"type": "uint256"
 			}
 		],
@@ -371,6 +376,25 @@ export const PRESALE_ABI =
 				"internalType": "struct uccPSale.Activity[]",
 				"name": "",
 				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_id",
+				"type": "uint256"
+			}
+		],
+		"name": "getUserActivitiesLength",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -665,6 +689,30 @@ export const PRESALE_ABI =
 			}
 		],
 		"name": "USDTtoUCC",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "userActivities",
 		"outputs": [
 			{
 				"internalType": "uint256",

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, ReactNode } from 'react';
+import React, { createContext, useContext, ReactNode, useEffect } from 'react';
 import { usePresale as usePresaleHook } from '@/hooks/usePresale';
 
 const PresaleContext = createContext<ReturnType<typeof usePresaleHook> | null>(null);
@@ -10,17 +10,26 @@ export const PresaleProvider = ({ children }: { children: ReactNode }) => {
     uccInfo,
     userUCCInfo,
     userAddress,
-    totalTokens,
+    totalTokens,curPage,
+    setCurPage,
     buyWithUSDT,
     buyWithBNB,
     resetStatus,
     initWallet} = usePresaleHook();
+
+useEffect(() => {
+  initWallet().then(() => {
+    console.log("done")
+  });
+},[curPage,userAddress,totalTokens])
+
   return (
     <PresaleContext.Provider value={{status,
         uccInfo,
         userUCCInfo,
         userAddress,
-        totalTokens,
+        totalTokens,curPage,
+        setCurPage,
         buyWithUSDT,
         buyWithBNB,
         resetStatus,

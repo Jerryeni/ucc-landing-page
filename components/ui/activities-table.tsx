@@ -1,34 +1,34 @@
 "use client";
 
-import { b2i } from "@/hooks/usePresale";
+import { b2f, b2i } from "@/hooks/usePresale";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./table";
 import { formatDate, shortenAddress } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePresale } from "@/providers/provider";
 
 export interface Activity {
   id: any;
   tokenAmt: any;
+  usdtAmt: any;
+  bnbAmt: any;
   mode: any;
 }
 
 interface ActivitiesTableProps {
   activities: Activity[];
+  length: number
 }
 
-export function ActivitiesTable({ activities }: ActivitiesTableProps) {
+export function ActivitiesTable({ activities,length }: ActivitiesTableProps) {
   const rowsPerPage = 10; // Number of rows per page
-  const [currentPage, setCurrentPage] = useState(1);
+  const {curPage, setCurPage} = usePresale();
 
   // Calculate total pages
-  const totalPages = Math.ceil(activities.length / rowsPerPage);
-
-  // Get current page activities
-  const startIndex = (currentPage - 1) * rowsPerPage;
-  const currentActivities = activities.slice(startIndex, startIndex + rowsPerPage);
+  const totalPages = Math.ceil(length / rowsPerPage);
 
   // Pagination handlers
-  const handlePreviousPage = () => setCurrentPage((prev) => Math.max(prev - 1, 1));
-  const handleNextPage = () => setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  const handlePreviousPage = () => setCurPage((prev) => Math.max(prev - 1, 1));
+  const handleNextPage = () => setCurPage((prev) => Math.min(prev + 1, totalPages));
 
   return (
     <div className="rounded-xl border border-[#F0B90B]/20 overflow-hidden">
@@ -66,12 +66,32 @@ export function ActivitiesTable({ activities }: ActivitiesTableProps) {
                 <span className="capitalize">{(activity.mode) == 0 ? "Investment": ((activity.mode) == 1 ? "Referral": "Dividend")}</span>
               </TableCell>
               <TableCell className="text-right font-medium text-[#F0B90B]">
-                {b2i(activity.tokenAmt)} UCC
+                {b2f(activity.tokenAmt)} UCC + {activity.mode == 1 ? (b2f(activity.bnbAmt) == 0 ? `${b2f(activity.usdtAmt)} USDT` :`${b2f(activity.bnbAmt)} BNB` ) : ""}
               </TableCell>
             </TableRow>))}
           </TableBody>
          
         </Table>
+        {/* Pagination Controls */}
+      <div className="flex justify-between items-center mt-4">
+        <button
+          onClick={handlePreviousPage}
+          disabled={curPage === 1 || curPage === 0}
+          className="px-4 py-2 bg-[#F0B90B] text-black rounded disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <span className="text-gray-400">
+          Page {curPage} of {totalPages}
+        </span>
+        <button
+          onClick={handleNextPage}
+          disabled={curPage === totalPages}
+          className="px-4 py-2 bg-[#F0B90B] text-black rounded disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
       </div>
 
      
