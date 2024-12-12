@@ -8,14 +8,16 @@ import { X, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { shortenAddress } from "@/lib/utils";
 import { usePresale } from "@/providers/provider";
+import TelegramIcon from "@/public/images/telegram.svg";
+import XIcon from "@/public/images/x.svg";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const {initWallet,userAddress} = usePresale();
+  const { initWallet, userAddress } = usePresale();
 
 
   useEffect(() => {
-  },[userAddress]);
+  }, [userAddress]);
 
   return (
     <nav className="fixed top-3 w-full z-50">
@@ -23,13 +25,20 @@ export function Navbar() {
         <div className="flex items-center justify-between h-14 md:h-16">
           {/* Logo Section */}
           <div className="flex items-center space-x-2">
-            <Image
-              src="/images/icon.png"
-              alt="ucc-logo"
-              width={24}
-              height={24}
-              priority
-            />
+            <Link
+              href='/'
+              className="text-muted-foreground hover:text-foreground transition-colors font-light"
+            >
+              <Image
+                src="/images/icon.png"
+                alt="ucc-logo"
+                width={24}
+                height={24}
+                priority
+              />
+            </Link>
+
+
             <span className="text-lg md:text-xl font-normal">UCChain</span>
           </div>
 
@@ -49,7 +58,35 @@ export function Navbar() {
           </div> */}
 
           {/* Desktop Buttons */}
+
           <div className="hidden md:flex items-center space-x-4">
+            <div className="social flex gap-2 items-center">
+            <Link
+                href='https://x.com/ucchainofficial'
+                className="text-muted-foreground hover:text-foreground transition-colors font-light"
+              >
+                <Image
+                  src="/images/x.svg"
+                  alt="x-logo"
+                  width={24}
+                  height={24}
+                  priority
+                />
+                
+              </Link>
+              <Link
+                href='https://t.me/ucchaincommunity'
+                className="text-muted-foreground hover:text-foreground transition-colors font-light"
+              >
+                <Image
+                  src="/images/telegram.svg"
+                  alt="telegram-logo"
+                  width={24}
+                  height={24}
+                  priority
+                />
+              </Link>
+            </div>
             <Button
               className="bg-primary !rounded-xl hover:bg-secondary h-10 text-sm text-white inset-0"
               onClick={initWallet}
@@ -81,9 +118,8 @@ export function Navbar() {
 
             {/* Mobile Menu */}
             <div
-              className={`fixed inset-0 bg-black bg-opacity-90 z-50 transform transition-transform duration-300 ${
-                isOpen ? "translate-x-0" : "translate-x-full"
-              }`}
+              className={`fixed inset-0 bg-black bg-opacity-90 z-50 transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"
+                }`}
             >
               <div className="p-4 relative bg-dark flex flex-col h-full">
                 <div className="flex justify-between items-center mb-8">
@@ -131,9 +167,52 @@ export function Navbar() {
                     >
                       λ Console
                     </Button> */}
+                    <div className="social flex gap-4 items-center">
+                      <Link
+                        href='https://x.com/ucchainofficial'
+                        className="text-muted-foreground flex items-center hover:text-foreground transition-colors font-light"
+                      >
+                        
+                        <Image
+                          src="/images/x.svg"
+                          alt="ucc-logo"
+                          width={24}
+                          height={24}
+                          priority
+                        /> 
+                      </Link>
+                      <Link
+                        href='https://x.com/ucchainofficial'
+                        className="text-muted-foreground flex gap-1 items-center hover:text-foreground transition-colors font-light"
+                      >
+                        <Image
+                          src="/images/telegram.svg"
+                          alt="telegram-logo"
+                          width={18}
+                          height={18}
+                          priority
+                        />
+                        <span>Chat</span>
+
+                      </Link>
+                      <Link
+                        href='https://t.me/ucchaincommunity'
+                        className="text-muted-foreground gap-1 flex items-center hover:text-foreground transition-colors font-light"
+                      >
+                        <Image
+                          src="/images/telegram.svg"
+                          alt="telegram-logo"
+                          width={18}
+                          height={18}
+                          priority
+                        />
+                        <span>Channel</span>
+
+                      </Link>
+                    </div>
                     <Button
                       className="bg-primary hover:bg-secondary text-black rounded-lg w-full"
-                    onClick={initWallet}
+                      onClick={initWallet}
                     >
                       {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
                     </Button>
@@ -144,6 +223,6 @@ export function Navbar() {
           </div>
         </div>
       </div>
-    </nav>
+    </nav >
   );
 }

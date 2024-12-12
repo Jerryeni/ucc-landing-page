@@ -1,32 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { CircleDollarSign, Twitter, UtilityPole, Youtube, Linkedin, MessageCircle, PenTool } from "lucide-react";
+
 import Image from "next/image";
+import TelegramIcon from "@/public/images/telegram.svg";
+import XIcon from "@/public/images/x.svg";
 
 const FOOTER_LINKS = {
-  "UCChain Network": [
-    { label: "Presale", href: "/presale" },
-    { label: "Dividends", href: "/dividends" },
-    { label: "Staking", href: "/staking" },
-    { label: "Console", href: "/console" },
-    { label: "Support", href: "/support" }
-  ],
-  "Documents": [
-    { label: "Wiki", href: "/wiki" },
-    { label: "Whitepaper", href: "/whitepaper" },
-    { label: "Audit", href: "/audit" },
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Term of use", href: "/terms" },
-    { label: "Cookie Policy", href: "/cookies" }
-  ],
+
   "Socials": [
-    { label: "X", href: "https://x.com", icon: Twitter },
-    { label: "Telegram", href: "https://t.me", icon: UtilityPole },
-    { label: "Chat", href: "/chat", icon: MessageCircle },
-    { label: "Medium", href: "https://medium.com", icon: PenTool },
-    { label: "YouTube", href: "https://youtube.com", icon: Youtube },
-    { label: "LinkedIn", href: "https://linkedin.com", icon: Linkedin }
+    { label: "X", href: "https://x.com/ucchainofficial", icon: XIcon },
+    { label: "Telegram Channel", href: "https://t.me/ucchainofficial", icon: TelegramIcon },
+    { label: "Telegram Chat", href: "https://t.me/ucchaincommunity", icon: TelegramIcon },
+   
+    
   ]
 };
 
@@ -53,7 +40,7 @@ export default function Footer() {
           </div>
 
           {/* Navigation Links */}
-          {/* {Object.entries(FOOTER_LINKS).map(([title, links]) => (
+          {Object.entries(FOOTER_LINKS).map(([title, links]) => (
             <div key={title}>
               <h3 className="font-semibold text-lg mb-4">{title}</h3>
               <ul className="space-y-3">
@@ -69,7 +56,7 @@ export default function Footer() {
                 ))}
               </ul>
             </div>
-          ))} */}
+          ))}
 
 
         </div>
