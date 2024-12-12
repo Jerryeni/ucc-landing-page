@@ -30,7 +30,7 @@ export function Navbar() {
               height={24}
               priority
             />
-            <span className="text-lg md:text-xl font-normal">UCC</span>
+            <span className="text-lg md:text-xl font-normal">UCChain</span>
           </div>
 
           {/* Desktop Navigation */}
