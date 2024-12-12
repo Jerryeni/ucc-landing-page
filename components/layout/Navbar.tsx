@@ -39,7 +39,7 @@ export function Navbar() {
             </Link>
 
 
-            <span className="text-lg md:text-xl font-normal">UCChain</span>
+            <span className="text-lg md:text-xl font-normal">UCC</span>
           </div>
 
           {/* Desktop Navigation */}
