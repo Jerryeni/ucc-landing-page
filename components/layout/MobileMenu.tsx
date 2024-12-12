@@ -48,33 +48,7 @@ export function MobileMenu() {
                 <X className="h-6 w-6" />
               </Button>
             </div>
-
-            {/* <nav className="flex flex-col space-y-6 text-2xl">
-              {NAV_ITEMS.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`${
-                    item.label === "Home" ? "text-text-gray-400" : "text-primary"
-                  }`}
-                  onClick={() => setIsOpen(false)}
-                >
-                  {item.label}
-                </Link>
-              ))}
-            </nav> */}
-
             <div className="mt-auto space-y-6">
-              {/* <div className="flex justify-center space-x-4">
-                <Button variant="outline" className="flex-1">
-                  λ Console
-                </Button>
-                <Button variant="outline" className="flex-1">
-                  Join community <span className="ml-2">✈</span>
-                </Button>
-              </div> */}
-
-             
             </div>
           </div>
         </div>

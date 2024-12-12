@@ -2,14 +2,11 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { NAV_ITEMS } from "@/lib/constants";
 import Image from "next/image";
 import { X, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import { shortenAddress } from "@/lib/utils";
 import { usePresale } from "@/providers/provider";
-import TelegramIcon from "@/public/images/telegram.svg";
-import XIcon from "@/public/images/x.svg";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,20 +39,7 @@ export function Navbar() {
             <span className="text-lg md:text-xl font-normal">UCC</span>
           </div>
 
-          {/* Desktop Navigation */}
-          {/* <div className="hidden md:flex items-center space-x-8">
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.label}
-                href={item.href}
-                className={`text-primary hover:text-white transition-colors text-sm ${
-                  item.label === "Home" ? "text-secondary rounded-lg" : ""
-                }`}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </div> */}
+          
 
           {/* Desktop Buttons */}
 
@@ -142,31 +126,12 @@ export function Navbar() {
                   </Button>
                 </div>
 
-                {/* Navigation Links */}
-                {/* <nav className="flex flex-col space-y-6 text-center">
-                  {NAV_ITEMS.map((item) => (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      className={`text-lg text-gray-300 hover:text-white ${
-                        item.label === "Home" ? "text-primary" : ""
-                      }`}
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
-                </nav> */}
+                
 
                 {/* Buttons in Mobile Menu */}
                 <div className="mt-auto space-y-6">
                   <div className="flex flex-col items-center space-y-4">
-                    {/* <Button
-                      variant="outline"
-                      className="bg-white text-black hover:bg-gray-100 rounded-lg w-full"
-                    >
-                      λ Console
-                    </Button> */}
+                   
                     <div className="social flex gap-4 items-center">
                       <Link
                         href='https://x.com/ucchainofficial'
