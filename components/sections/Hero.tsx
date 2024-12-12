@@ -1,50 +1,30 @@
 "use client";
 
-import { useEffect, useState } from 'react';
-import { CountdownCard } from '@/components/ui/countdown-card';
-import { TokenProgress } from '@/components/ui/token-progress';
-import { calculateTimeLeft } from '@/lib/utils';
-import { CountdownTime, UCCInfo, UserUCCInfo } from '@/lib/types';
-import { CountdownTimer } from '../ui/countdown-timer';
-import { usePresale } from '@/providers/provider';
-
+import { useEffect, useState } from "react";
+import { CountdownTimer } from "../ui/countdown-timer";
+import { TokenProgress } from "@/components/ui/token-progress";
+import { usePresale } from "@/providers/provider";
+import { calculateTimeLeft } from "@/lib/utils";
+import { CountdownTime } from "@/lib/types";
 
 export default function Hero() {
   const [timeLeft, setTimeLeft] = useState<CountdownTime>({
     days: 2,
     hours: 1,
     minutes: 18,
-    seconds: 44
+    seconds: 44,
   });
 
-
-
-  const { uccInfo, userUCCInfo, initWallet, userAddress, totalTokens } = usePresale();
-
-  // const [_uccInfo,setUCCInfo] = useState<UCCInfo>({
-  //   totalInvestmentsUSDT:0,totalInvestmentsBNB:0,totalUsers:0,priceUSDT:0,priceBNB:0,totalTokensToBEDistributed:0
-  // });
-
-  // const [_userUCCInfo,setUserUCCInfo] = useState<UserUCCInfo>({
-  //   userId:0,usersInfo:null,recentActivities:[],activityLength:0
-  // });
+  const { uccInfo, userUCCInfo, totalTokens } = usePresale();
 
   useEffect(() => {
-    const targetDate = new Date('2024-12-31T00:00:00');
-
+    const targetDate = new Date("2024-12-31T00:00:00");
     const timer = setInterval(() => {
       setTimeLeft(calculateTimeLeft(targetDate));
     }, 1000);
 
     return () => clearInterval(timer);
   }, []);
-
-  useEffect(() => {
-    // console.log(uccInfo,userUCCInfo);
-    //   setUCCInfo(uccInfo);
-    //   setUserUCCInfo(userUCCInfo);
-
-  }, [userAddress, totalTokens, uccInfo, userUCCInfo]);
 
   return (
     <section className="relative min-h-screen pt-20 flex mb-10 flex-col items-center justify-center overflow-hidden">
@@ -57,11 +37,9 @@ export default function Hero() {
         <h1 className="md:text-5xl text-3xl font-bold mb-2 w-fit backdrop-blur-lg bg-white/100 mx-auto text-white bg-clip-text text-transparent">
           UCC Seed Sale
         </h1>
-        <p className="md:text-md text-xs  text-gray-400 mb-12">ENDS IN</p>
+        <p className="md:text-md text-xs text-gray-400 mb-12">ENDS IN</p>
 
-
-        <CountdownTimer targetDate={new Date('2025-01-04')} />
-
+        <CountdownTimer targetDate={new Date("2025-01-04")} />
 
         {/* Stats Bar */}
         <div className="w-full mt-24 max-w-4xl mx-auto backdrop-blur-xl bg-black/40 rounded-3xl border border-[#F0B90B]/20 overflow-hidden">
@@ -69,18 +47,34 @@ export default function Hero() {
 
           <div className="grid grid-cols-3 p-6">
             <div className="text-left">
-              <div className="text-xs md:text-sm text-gray-400 mb-1">USDT RAISED</div>
-              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">{uccInfo.totalInvestmentsUSDT} USDT</div>
-              <div className="text-xs md:text-sm text-gray-400 mb-1">BNB RAISED</div>
-              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">{(uccInfo.totalInvestmentsBNB).toFixed(4)} BNB</div>
+              <div className="text-xs md:text-sm text-gray-400 mb-1">
+                USDT RAISED
+              </div>
+              <div className="text-xs md:text-lg font-bold text-[#F0B90B]">
+                {uccInfo.totalInvestmentsUSDT} USDT
+              </div>
+              <div className="text-xs md:text-sm text-gray-400 mb-1">
+                BNB RAISED
+              </div>
+              <div className="text-xs md:text-lg font-bold text-[#F0B90B]">
+                {uccInfo.totalInvestmentsBNB.toFixed(4)} BNB
+              </div>
             </div>
             <div className="text-center">
-              <div className="text-xs md:text-sm text-gray-400 mb-">LISTING DATE</div>
-              <div className="text-xs md:text-2xl font-bold">Announced soon</div>
+              <div className="text-xs md:text-sm text-gray-400 mb-">
+                LISTING DATE
+              </div>
+              <div className="text-xs md:text-xl font-bold">
+                Announced soon
+              </div>
             </div>
             <div className="text-right">
-              <div className="text-xs md:text-sm text-gray-400 mb-1">HOLDERS</div>
-              <div className="text-xs md:text-2xl font-bold text-[#F0B90B]">{parseInt(uccInfo.totalUsers.toString())}</div>
+              <div className="text-xs md:text-sm text-gray-400 mb-1">
+                HOLDERS
+              </div>
+              <div className="text-xs md:text-xl font-bold text-[#F0B90B]">
+                {parseInt(uccInfo.totalUsers.toString())}
+              </div>
             </div>
           </div>
 
@@ -94,7 +88,10 @@ export default function Hero() {
               userEarningsUSDT={userUCCInfo.usersInfo?.refIncomeUSDT ?? 0}
               userId={userUCCInfo.userId}
               userTokens={userUCCInfo.usersInfo?.totalTokens ?? 0}
-              progress={(uccInfo.totalTokensToBEDistributed * 100) / 5000000}
+              progress={
+                uccInfo.totalTokensToBEDistributed &&
+                (uccInfo.totalTokensToBEDistributed * 100) / 5000000
+              }
               tokensSold={uccInfo.totalTokensToBEDistributed}
               totalTokens={5000000}
               activities={userUCCInfo.recentActivities}

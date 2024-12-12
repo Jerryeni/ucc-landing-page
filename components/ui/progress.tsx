@@ -15,7 +15,7 @@ const Progress = React.forwardRef<
   (
     {
       className,
-      value = 0, 
+      value,
       indicatorClassName,
       tokensSold,
       totalTokens,
@@ -23,10 +23,8 @@ const Progress = React.forwardRef<
     },
     ref
   ) => {
-    const progressPercentage = value || 0 ;
-    const dynamicTokensSold = Math.round(
-      (progressPercentage / 100) * totalTokens
-    );
+    const progressPercentage = totalTokens > 0 ? (tokensSold / totalTokens) * 100 : 0;
+    const dynamicTokensSold = Math.round(tokensSold);
 
     return (
       <div className="relative w-full">
@@ -51,7 +49,7 @@ const Progress = React.forwardRef<
         </ProgressPrimitive.Root>
 
         {/* White dot */}
-        {value !== undefined && (
+        {tokensSold !== undefined && (
           <div
             className="absolute top-1/2 -translate-y-1/2 bg-white rounded-full"
             style={{
@@ -62,7 +60,8 @@ const Progress = React.forwardRef<
           />
         )}
 
-        {value !== undefined && (
+        {/* Tooltip */}
+        {tokensSold !== undefined && (
           <div
             className="absolute top-8 ml-8 break-words flex-wrap transform"
             style={{

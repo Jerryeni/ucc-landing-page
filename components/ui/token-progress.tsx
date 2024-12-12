@@ -78,37 +78,63 @@ export function TokenProgress({
 
   return (
     <div className="space-y-6 backdrop-blur-xl bg-input rounded-3xl p-6 md:p-8">
-      <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
-        <div className="flex items-center justify-center gap-1">
-          <Image
-            src="/images/icon.png"
-            alt="ucc-logo"
-            width={12}
-            height={12}
-            className="w-5 h-5"
-          />
-          <span className="text-gray-200">1 UCC =</span>
-          <div className="flex items-center gap-2">
-            <img
-              src="/images/tether.svg"
-              alt="USDT"
-              className="w-5 h-5"
+      <div className="flex md:flex-row justify-between md:justify-between items-centers md:items-center gap-4">
+        <div className="flex items-start gap-2 flex-col">
+          <span className="py-1 px-3 text-[8px] md:text-sm glass-card">Current price</span>
+          <div className="flex items-center justify-center gap-1">
+            <Image
+              src="/images/icon.png"
+              alt="ucc-logo"
+              width={12}
+              height={12}
+              className="md:w-5 md:h-5 w-3 h-3"
             />
-            <span className="text-[#F0B90B] font-semibold">
-              {formatCurrency(tokenUSDTPrice, 3)} USDT
-            </span>
+            <span className="text-gray-200 md:text-sm text-[8px]">1 UCC =</span>
+            <div className="flex items-center gap-2">
+              <img
+                src="/images/tether.svg"
+                alt="USDT"
+                className="w-5 h-5"
+              />
+              <span className="text-[#F0B90B] md:text-sm text-[8px] font-semibold">
+                {formatCurrency(tokenUSDTPrice, 3)} USDT
+              </span>
+            </div>
           </div>
         </div>
+        <div className="flex items-end gap-2 flex-col">
+          <span className="py-1 px-3 glass-card text-[8px] md:text-sm">Next price</span>
+          <div className="flex items-center justify-center gap-1">
+            <Image
+              src="/images/icon.png"
+              alt="ucc-logo"
+              width={12}
+              height={12}
+              className="md:w-5 md:h-5 w-3 h-3"
+            />
+            <span className="text-gray-200 md:text-sm text-[8px]">1 UCC =</span>
+            <div className="flex items-center gap-2">
+              <img
+                src="/images/tether.svg"
+                alt="USDT"
+                className="w-3 h-3 md:w-5 md:h-5"
+              />
+              <span className="text-[#F0B90B] md:text-sm text-[8px] font-semibold ">
+                {formatCurrency(tokenUSDTPrice * 10, 3)} USDT
+              </span>
+            </div>
+          </div>
+        </div>
+
       </div>
 
       <Progress
         value={progress}
         tokensSold={tokensSold}
         totalTokens={totalTokens}
-        className="h-4 rounded-xl bg-secondary mb-20"
+        className="h-4 rounded-xl bg-secondary"
         indicatorClassName="bg-gradient-to-r from-[#F0B90B] to-[#FCD435]"
       />
-
       <div className="pt-10 p-1 md:p-8">
         <h2 className="text-sm md:text-xl mb-8 text-white ">Step 1 - <span className=" text-gray-400">
           Select the Payment Method (BEP20)
