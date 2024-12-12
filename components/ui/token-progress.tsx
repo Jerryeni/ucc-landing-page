@@ -77,7 +77,7 @@ export function TokenProgress({
   };
 
   return (
-    <div className="space-y-6 backdrop-blur-xl bg-input rounded-3xl p-6 md:p-8">
+    <div className="space-y-6 backdrop-blur-xl bg-input rounded-3xl p-6 md:p-8 overflow-x-auto">
       <div className="flex md:flex-row justify-between md:justify-between items-centers md:items-center gap-4">
         <div className="flex items-start gap-2 flex-col">
           <span className="py-1 px-3 text-[8px] md:text-sm glass-card">Current price</span>
@@ -135,6 +135,7 @@ export function TokenProgress({
         className="h-4 rounded-xl bg-secondary"
         indicatorClassName="bg-gradient-to-r from-[#F0B90B] to-[#FCD435]"
       />
+
       <div className="pt-10 p-1 md:p-8">
         <h2 className="text-sm md:text-xl mb-8 text-white ">Step 1 - <span className=" text-gray-400">
           Select the Payment Method (BEP20)
