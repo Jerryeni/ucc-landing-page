@@ -8,7 +8,7 @@ import { PresaleProvider } from "@/providers/provider";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "UCCash Network - AI-Powered Trading Platform",
+  title: "UCChain Network",
   description:
     "Join presale & get profit from Trading Pool in USDT every month.",
 };

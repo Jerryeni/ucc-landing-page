@@ -55,7 +55,7 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 mt-10 text-center">
         <h1 className="md:text-5xl text-3xl font-bold mb-2 w-fit backdrop-blur-lg bg-white/100 mx-auto text-white bg-clip-text text-transparent">
-          UCC Presale
+          UCC Seed Sale
         </h1>
         <p className="md:text-md text-xs  text-gray-400 mb-12">ENDS IN</p>
 
@@ -76,7 +76,7 @@ export default function Hero() {
             </div>
             <div className="text-center">
               <div className="text-xs md:text-sm text-gray-400 mb-">LISTING DATE</div>
-              <div className="text-xs md:text-2xl font-bold">MARCH 4, 2025</div>
+              <div className="text-xs md:text-2xl font-bold">Announced soon</div>
             </div>
             <div className="text-right">
               <div className="text-xs md:text-sm text-gray-400 mb-1">HOLDERS</div>

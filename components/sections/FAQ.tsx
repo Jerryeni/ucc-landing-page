@@ -9,28 +9,28 @@ import {
 
 const FAQ_ITEMS = [
   {
-    question: "How can I purchase UCCash tokens?",
-    answer: "You can purchase UCCash tokens during our presale phases using USDT, USDC, BNB, BTC, or ETH. Simply connect your wallet, select your preferred payment method, enter the amount you wish to invest, and complete the transaction."
+    question: "How can I purchase UCChain tokens?",
+    answer: "You can purchase UCChain tokens during our presale phases using USDT, USDC, BNB, BTC, or ETH. Simply connect your wallet, select your preferred payment method, enter the amount you wish to invest, and complete the transaction."
   },
   {
     question: "How much profit can I make and why will the token value increase?",
-    answer: "UCCash token value is expected to increase due to our AI-driven trading system, limited token supply, and growing user base. The profit potential comes from both token appreciation and monthly USDT dividends from our trading pool."
+    answer: "UCChain token value is expected to increase due to our AI-driven trading system, limited token supply, and growing user base. The profit potential comes from both token appreciation and monthly USDT dividends from our trading pool."
   },
   {
     question: "How are dividends distributed?",
-    answer: "Dividends are distributed monthly in USDT directly to holders' wallets. The amount depends on your UCCash holdings and the performance of our AI trading system, typically ranging from 5-15% monthly."
+    answer: "Dividends are distributed monthly in USDT directly to holders' wallets. The amount depends on your UCChain holdings and the performance of our AI trading system, typically ranging from 5-15% monthly."
   },
   {
     question: "How can I start earning passive income?",
-    answer: "Start earning passive income by purchasing and holding UCCash tokens. You'll automatically receive monthly USDT dividends from our trading pool, plus potential token value appreciation."
+    answer: "Start earning passive income by purchasing and holding UCChain tokens. You'll automatically receive monthly USDT dividends from our trading pool, plus potential token value appreciation."
   },
   {
     question: "How does the referral program work?",
-    answer: "Our referral program rewards you with 5% of the purchase amount when someone buys UCCash tokens using your referral link. The bonus is paid instantly in the same currency used for the purchase."
+    answer: "Our referral program rewards you with 5% of the purchase amount when someone buys UCChain tokens using your referral link. The bonus is paid instantly in the same currency used for the purchase."
   },
   {
-    question: "What are the main benefits of using the UCCash Network?",
-    answer: "UCCash Network offers monthly USDT dividends, potential token value appreciation, access to advanced AI trading algorithms, staking rewards, and community governance rights."
+    question: "What are the main benefits of using the UCChain Network?",
+    answer: "UCChain Network offers monthly USDT dividends, potential token value appreciation, access to advanced AI trading algorithms, staking rewards, and community governance rights."
   }
 ];
 

@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { CircleDollarSign, Twitter, UtilityPole, Youtube, Linkedin, MessageCircle, PenTool } from "lucide-react";
+import Image from "next/image";
 
 const FOOTER_LINKS = {
-  "UCCash Network": [
+  "UCChain Network": [
     { label: "Presale", href: "/presale" },
     { label: "Dividends", href: "/dividends" },
     { label: "Staking", href: "/staking" },
@@ -37,11 +38,17 @@ export default function Footer() {
           {/* Logo and Copyright */}
           <div>
             <Link href="/" className="flex items-center gap-2 mb-6">
-              <CircleDollarSign className="w-8 h-8 text-[#F0B90B]" />
-              <span className="text-xl font-bold">UCCash</span>
+              <Image
+                src="/images/icon.png"
+                alt="ucc-logo"
+                width={24}
+                height={24}
+                priority
+              />
+              <span className="text-xl font-bold">UCChain</span>
             </Link>
             <p className="text-gray-400 text-sm">
-              © 2024 UCCash Network. All rights reserved.
+              © 2024 UCChain Network. All rights reserved.
             </p>
           </div>
 
