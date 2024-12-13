@@ -213,6 +213,7 @@ export function usePresale() {
         } else {
           activityLength = await ps.getUserActivitiesLength(userId);
           recentActivities = await ps.getRecentActivities(userId, cpage);
+          console.log(recentActivities);
         }
       } catch (error) {
         recentActivities = [];

@@ -8,6 +8,7 @@ import { usePresale } from "@/providers/provider";
 
 export interface Activity {
   id: any;
+  refId: any;
   tokenAmt: any;
   usdtAmt: any;
   bnbAmt: any;
@@ -60,10 +61,10 @@ export function ActivitiesTable({ activities,length }: ActivitiesTableProps) {
                 </a>
               </TableCell> */}
               <TableCell>
-                {parseInt(activity.id.toString())}
+                {(activity.mode) == 1 ? parseInt(activity.refId.toString()) : parseInt(activity.id.toString())}
               </TableCell>
               <TableCell>
-                <span className="capitalize">{(activity.mode) == 0 ? "Investment": ((activity.mode) == 1 ? "Referral": "Dividend")}</span>
+                <span className="capitalize">{(activity.mode) == 0 ? "Investment": ((activity.mode) == 1 ? `Referral`: "Dividend")}</span>
               </TableCell>
               <TableCell className="text-right font-medium text-[#F0B90B]">
                 {b2f(activity.tokenAmt).toFixed(2)} UCC {activity.mode == 1 ? (b2f(activity.bnbAmt) == 0 ? `+ ${b2f(activity.usdtAmt).toFixed(2)} USDT` :`+ ${b2f(activity.bnbAmt).toFixed(4)} BNB` ) : ""}
