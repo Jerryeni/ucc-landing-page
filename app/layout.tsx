@@ -4,8 +4,9 @@ import { Inter } from "next/font/google";
 import { Navbar } from "@/components/layout/Navbar";
 import { AlertBanner } from "@/components/ui/alert-banner/AlertBanner";
 import { PresaleProvider } from "@/providers/provider";
-
 const inter = Inter({ subsets: ["latin"] });
+import ContextProvider from '@/context'
+import { headers } from "next/headers";
 
 export const metadata: Metadata = {
   title: "UCChain Network",
@@ -18,17 +19,18 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+
   return (
     <html lang="en">
-        <body className={inter.className}>
-
-      <PresaleProvider>
-          <Navbar />
-          {children}
-          <AlertBanner />
-
-      </PresaleProvider>
-        </body>
+      <body className={inter.className}>
+        <ContextProvider cookies={null}>
+          <PresaleProvider>
+            <Navbar />
+            {children}
+            <AlertBanner />
+          </PresaleProvider>
+        </ContextProvider>
+      </body>
     </html>
   );
 }

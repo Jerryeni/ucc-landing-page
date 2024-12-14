@@ -8,10 +8,12 @@ import { useEffect, useState } from "react";
 import { shortenAddress } from "@/lib/utils";
 import { usePresale } from "@/providers/provider";
 
+import { useAccount } from "wagmi";
+
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { initWallet, userAddress } = usePresale();
-
+const {isConnected} = useAccount();
 
   useEffect(() => {
   }, [userAddress]);
@@ -71,22 +73,24 @@ export function Navbar() {
                 />
               </Link>
             </div>
-            <Button
+            {/* <Button
               className="bg-primary !rounded-xl hover:bg-secondary h-10 text-sm text-white inset-0"
               onClick={initWallet}
             >
               {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
-            </Button>
+            </Button> */}
+            <w3m-button />
           </div>
 
           {/* Mobile Buttons */}
           <div className="md:hidden">
-            <Button
+            {/* <Button
               className="bg-primary text-black hover:text-white rounded-lg hover:bg-secondary h-8 text-sm px-4"
               onClick={initWallet}
             >
               {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
-            </Button>
+            </Button> */}
+            <w3m-button />
           </div>
 
           {/* Hamburger Menu for Mobile */}
@@ -175,12 +179,13 @@ export function Navbar() {
 
                       </Link>
                     </div>
-                    <Button
+                    {/* <Button
                       className="bg-primary hover:bg-secondary text-black rounded-lg w-full"
                       onClick={initWallet}
                     >
                       {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
-                    </Button>
+                    </Button> */}
+                    <w3m-button />
                   </div>
                 </div>
               </div>
