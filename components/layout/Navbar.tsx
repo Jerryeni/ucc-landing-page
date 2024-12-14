@@ -179,13 +179,9 @@ const {isConnected} = useAccount();
 
                       </Link>
                     </div>
-                    {/* <Button
-                      className="bg-primary hover:bg-secondary text-black rounded-lg w-full"
-                      onClick={initWallet}
-                    >
-                      {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
-                    </Button> */}
-                    <w3m-button />
+                    
+                      <w3m-button />
+                    
                   </div>
                 </div>
               </div>

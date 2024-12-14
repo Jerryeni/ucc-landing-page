@@ -44,7 +44,8 @@ export function AlertBanner() {
           <TextContent
             title="Join Presale - Earn 10X at Listing"
             subtitle="Refer and Earn"
-            details="Get 30% Referral Rewards ( 15% USDT + 15% UCC )"
+            details="Get 30% Referral Rewards"
+            details2="( 15% USDT + 15% UCC )"
           />
 
           <div className="text-center space-y-6">
