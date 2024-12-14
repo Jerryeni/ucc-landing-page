@@ -1,7 +1,7 @@
 import { ethers } from 'ethers';
 import { ADDRESSES } from '../contracts/addresses';
 
-export async function switchToBSCTestnet() {
+export async function switchToBNBChain() {
   if (!window.ethereum) throw new Error("No Web3 Provider found");
   try {
     console.log("requesting")
@@ -16,14 +16,15 @@ export async function switchToBSCTestnet() {
         method: 'wallet_addEthereumChain',
         params: [{
           chainId: `0x${ADDRESSES.CHAIN_ID.toString(16)}`,
-          chainName: 'BSC Testnet',
+          name: 'BNB Smart Chain',
+          network: 'bsc',
           nativeCurrency: {
-            name: 'tBNB',
-            symbol: 'tBNB',
-            decimals: 18
+            name: 'BNB',
+            symbol: 'BNB',
+            decimals: 18,
           },
-          rpcUrls: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
-          blockExplorerUrls: ['https://testnet.bscscan.com/']
+          rpcUrls: ['https://bsc-dataseed.binance.org/'],
+          blockExplorerUrls: ['https://bscscan.com']
         }]
       });
     }
@@ -32,7 +33,7 @@ export async function switchToBSCTestnet() {
 
 export async function getWeb3Provider() {
   if (!window.ethereum) throw new Error("No Web3 Provider found");
-  
-  await switchToBSCTestnet();
+
+  await switchToBNBChain();
   return new ethers.BrowserProvider(window.ethereum);
 }
