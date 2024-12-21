@@ -71,7 +71,7 @@ export function usePresale() {
       )
 
       setStatus(PurchaseStatus.APPROVING);
-      const parsedAmount = ethers.parseUnits(amount, 18); // USDT uses 6 decimals
+      const parsedAmount = ethers.parseUnits(amount, 18);
       const urlParams = new URLSearchParams(window.location.search);
       const ref = parseInt(urlParams.get('ref') || '0') || 0;
       const approveTx = await ua.approve(

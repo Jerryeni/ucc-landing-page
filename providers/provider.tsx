@@ -35,7 +35,7 @@ useEffect(() => {
         resetStatus,
         initWallet}}>
       {children}
-    </PresaleContext.Provider>
+    </PresaleContext.Provider>    
   );
 };
 

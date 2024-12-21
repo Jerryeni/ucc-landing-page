@@ -23,13 +23,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ContextProvider cookies={null}>
-          <PresaleProvider>
+        <PresaleProvider>
+          <ContextProvider cookies={null}>
             <Navbar />
             {children}
             <AlertBanner />
-          </PresaleProvider>
-        </ContextProvider>
+          </ContextProvider>
+        </PresaleProvider>
+
       </body>
     </html>
   );
