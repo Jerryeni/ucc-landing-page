@@ -12,11 +12,13 @@ interface ReferralStatsProps {
   totalEarningsBNB: string;
   totalDepositBNB: string;
   totalDepositUSDT: string;
+  usdtprice: string;
 }
 
 export function ReferralStats({
   referralLink,
   totalEarningsUSDT,
+  usdtprice,
   totalEarningsucc,
   totalDepositBNB,
   totalDepositUSDT,
@@ -66,7 +68,7 @@ export function ReferralStats({
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex-1 bg-black/50 rounded-xl p-4 border border-[#F0B90B]/20">
           <div className="text-sm text-gray-400 mb-1">Total Earnings (UCC)</div>
-          <div className="text-2xl font-bold text-[#F0B90B]">{totalEarningsucc}</div>
+          <div className="text-2xl font-bold text-[#F0B90B]">{totalEarningsucc} (${usdtprice})</div>
         </div>
       </div>
 
