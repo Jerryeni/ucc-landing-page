@@ -30,7 +30,6 @@ export default function RootLayout({
             <AlertBanner />
           </ContextProvider>
         </PresaleProvider>
-
       </body>
     </html>
   );
