@@ -20,7 +20,7 @@ export function WhyUcchain() {
     {
       title: "Proof of Authority (PoA) Mechanism",
       description: "Ucchain leverages the Proof of Authority (PoA) mechanism, replacing traditional consensus methods like Proof of Work (PoW) and Proof of Stake (PoS). In PoA, pre-assigned validators verify transactions, ensuring faster and more energy-efficient operations. This mechanism eliminates the need for extensive computational power while maintaining network security and reliability.",
-      src: "/img2.svg"
+      src: "/img2.png"
     },
     {
       title: "UCC Coin: The Native Currency",

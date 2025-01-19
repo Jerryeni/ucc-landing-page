@@ -100,7 +100,7 @@ export function Tokenomics() {
             </div>
             {/* <PieChart /> */}
             <div className="relative">
-              <Image width={40} height={40} src="/teko.svg" alt="" className="w-[60%] mx-auto mt-10" />
+              <Image width={40} height={40} src="/teko.png" alt="" className="w-[60%] mx-auto mt-10" />
             </div>
             {/* <ul className="flex flex-col mx-auto py-4 text-muted/80">
               <li className="text-xs text-left">Team (5%)</li>

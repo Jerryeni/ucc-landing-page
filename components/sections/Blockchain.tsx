@@ -77,10 +77,10 @@ export function Blockchain() {
         </motion.div>
 
         <div className="relative">
-          <Image width={40} height={40} src="/images/blockchain.svg" alt="" className="w-[80%] mx-auto mt-10" />
+          <Image width={40} height={40} src="/blockchain.png" alt="" className="w-[80%] mx-auto mt-10" />
         </div>
         <div className="relative">
-          <Image width={40} height={40} src="/images/blockchain2.svg" alt="" className="w-[80%] mx-auto mt-10" />
+          {/* <Image width={40} height={40} src="/images/blockchain2.svg" alt="" className="w-[80%] mx-auto mt-10" /> */}
           <p className="text-center md:text-2xl text-muted/80">After achieving consensus, the block is added to the chain</p>
         </div>
 
