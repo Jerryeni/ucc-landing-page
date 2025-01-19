@@ -39,8 +39,8 @@ const config: Config = {
           foreground: 'var(--secondary-foreground)',
         },
         muted: {
-          DEFAULT: 'var(--muted)',
-          foreground: 'var(--muted-foreground)',
+          DEFAULT: '#FFFDF0',
+          foreground: 'hsl(var(--muted-foreground))',
         },
         accent: {
           DEFAULT: 'var(--accent)',

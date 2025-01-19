@@ -7,6 +7,25 @@ import { usePresale } from "@/providers/provider";
 import { calculateTimeLeft } from "@/lib/utils";
 import { CountdownTime } from "@/lib/types";
 
+interface PhaseIndicatorProps {
+  currentPhase: number;
+  totalPhases: number;
+}
+
+const PhaseIndicator: React.FC<PhaseIndicatorProps> = ({ currentPhase, totalPhases }) => {
+  return (
+    <h1 className="relative md:text-5xl text-3xl font-bold mb-2 w-fit mx-auto text-white bg-clip-text text-transparent backdrop-blur-lg shadow-inner">
+    <span className="absolute inset-0 shadow-inner bg-white/30 blur-lg"></span>
+    <span className="relative z-10">
+      Phase {currentPhase}
+    <sup className="text-sm align-super text-gray-400">/{totalPhases}</sup>
+    </span>
+    </h1>
+
+
+  );
+};
+
 export default function Hero() {
   const [timeLeft, setTimeLeft] = useState<CountdownTime>({
     days: 2,
@@ -26,6 +45,7 @@ export default function Hero() {
     return () => clearInterval(timer);
   }, []);
 
+  // console.log(userUCCInfo.usersInfo[3])
   return (
     <section className="relative min-h-screen pt-20 flex mb-10 flex-col items-center justify-center overflow-hidden">
       {/* Background Effects */}
@@ -34,12 +54,10 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 mt-10 text-center">
-        <h1 className="md:text-5xl text-3xl font-bold mb-2 w-fit backdrop-blur-lg bg-white/100 mx-auto text-white bg-clip-text text-transparent">
-          UCC Seed Sale
-        </h1>
+        <PhaseIndicator currentPhase={1} totalPhases={10} />
         <p className="md:text-md text-xs text-gray-400 mb-12">ENDS IN</p>
 
-        <CountdownTimer targetDate={new Date("2025-01-04")} />
+        <CountdownTimer targetDate={new Date("2025-02-04")} />
 
         {/* Stats Bar */}
         <div className="w-full mt-24 max-w-4xl mx-auto backdrop-blur-xl bg-black/40 rounded-3xl border border-[#F0B90B]/20 overflow-hidden">
@@ -82,12 +100,13 @@ export default function Hero() {
             <TokenProgress
               tokenBNBPrice={uccInfo.priceBNB}
               tokenUSDTPrice={uccInfo.priceUSDT}
-              userDepositsUSDT={userUCCInfo.usersInfo?.totalDepositUSDT ?? 0}
-              userDepositsBNB={userUCCInfo.usersInfo?.totalDepositBNB ?? 0}
-              userEarningsBNB={userUCCInfo.usersInfo?.refIncomeBNB ?? 0}
-              userEarningsUSDT={userUCCInfo.usersInfo?.refIncomeUSDT ?? 0}
+              userInfo={userUCCInfo.usersInfo}
+              userDepositsUSDT={userUCCInfo.usersInfo?.[3] ?? 0}
+              userDepositsBNB={userUCCInfo.usersInfo?.[4] ?? 0}
+              userEarningsBNB={userUCCInfo.usersInfo?.[6] ?? 0}
+              userEarningsUSDT={userUCCInfo.usersInfo?.[5] ?? 0}
               userId={userUCCInfo.userId}
-              userTokens={userUCCInfo.usersInfo?.totalTokens ?? 0}
+              userTokens={userUCCInfo.usersInfo?.[7] ?? 0}
               progress={
                 uccInfo.totalTokensToBEDistributed &&
                 (uccInfo.totalTokensToBEDistributed * 100) / 10000000

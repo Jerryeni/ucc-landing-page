@@ -1,11 +1,13 @@
 'use client'
 
-import { wagmiAdapter, projectId } from '@/lib/config'
+import { projectId, config } from '@/lib/config'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { createAppKit } from '@reown/appkit/react'
-import { mainnet, bsc } from '@reown/appkit/networks'
+import { bsc } from 'wagmi/chains';
 import React, { type ReactNode } from 'react'
 import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi'
+import '@rainbow-me/rainbowkit/styles.css';
+import { RainbowKitProvider } from '@rainbow-me/rainbowkit';
+
 
 // Set up queryClient
 const queryClient = new QueryClient()
@@ -22,24 +24,17 @@ const metadata = {
     icons: ['https://avatars.githubusercontent.com/u/179229932']
 }
 
-// Create the modal
-const modal = createAppKit({
-    adapters: [wagmiAdapter],
-    projectId,
-    networks: [mainnet, bsc],
-    defaultNetwork: bsc,
-    metadata: metadata,
-    features: {
-        analytics: true,
-    }
-})
 
-function ContextProvider({ children, cookies }: { children: ReactNode; cookies: string | null }) {
-    const initialState = cookieToInitialState(wagmiAdapter.wagmiConfig as Config, cookies)
+
+function ContextProvider({ children }: { children: ReactNode }) {
 
     return (
-        <WagmiProvider config={wagmiAdapter.wagmiConfig as Config} initialState={initialState}>
-            <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        <WagmiProvider config={config}>
+            <QueryClientProvider client={queryClient}>
+                <RainbowKitProvider>
+                    {children}
+                </RainbowKitProvider>
+            </QueryClientProvider>
         </WagmiProvider>
     )
 }

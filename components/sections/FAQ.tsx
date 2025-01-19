@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import {
   Accordion,
   AccordionContent,
@@ -7,60 +8,67 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const FAQ_ITEMS = [
-  {
-    question: "How can I purchase UCChain tokens?",
-    answer: "You can purchase UCChain tokens during our presale phases using USDT, USDC, BNB, BTC, or ETH. Simply connect your wallet, select your preferred payment method, enter the amount you wish to invest, and complete the transaction."
-  },
-  {
-    question: "How much profit can I make and why will the token value increase?",
-    answer: "UCChain token value is expected to increase due to our AI-driven trading system, limited token supply, and growing user base. The profit potential comes from both token appreciation and monthly USDT dividends from our trading pool."
-  },
-  {
-    question: "How are dividends distributed?",
-    answer: "Dividends are distributed monthly in USDT directly to holders' wallets. The amount depends on your UCChain holdings and the performance of our AI trading system, typically ranging from 5-15% monthly."
-  },
-  {
-    question: "How can I start earning passive income?",
-    answer: "Start earning passive income by purchasing and holding UCChain tokens. You'll automatically receive monthly USDT dividends from our trading pool, plus potential token value appreciation."
-  },
-  {
-    question: "How does the referral program work?",
-    answer: "Our referral program rewards you with 5% of the purchase amount when someone buys UCChain tokens using your referral link. The bonus is paid instantly in the same currency used for the purchase."
-  },
-  {
-    question: "What are the main benefits of using the UCChain Network?",
-    answer: "UCChain Network offers monthly USDT dividends, potential token value appreciation, access to advanced AI trading algorithms, staking rewards, and community governance rights."
-  }
-];
+export function FAQ() {
+  const faqs = [
+    {
+      question: "What is Ucchain?",
+      answer: "Ucchain is an innovative blockchain platform designed for scalability, security, and efficiency. It offers a comprehensive ecosystem for digital assets and decentralized applications."
+    },
+    {
+      question: "How can I participate in the UCC seed sale?",
+      answer: "You can participate in the UCC seed sale by connecting your wallet, selecting your preferred payment method (USDT or BNB), and purchasing UCC tokens through our platform."
+    },
+    {
+      question: "What makes Ucchain different from other blockchain platforms?",
+      answer: "Ucchain stands out with its innovative architecture, community-driven governance, low transaction fees, and comprehensive ecosystem designed for long-term sustainability."
+    },
+    {
+      question: "What are the benefits of staking UCC tokens?",
+      answer: "Staking UCC tokens provides you with passive income through rewards, helps secure the network, and gives you voting rights in platform governance decisions."
+    },
+    {
+      question: "How does Ucchain ensure transaction security?",
+      answer: "Ucchain employs advanced cryptographic protocols, secure consensus mechanisms, and regular security audits to ensure the safety of all transactions on the platform."
+    },
+    {
+      question: "When will UCC be listed on exchanges?",
+      answer: "UCC is scheduled to be listed on major exchanges in Q3 2025. Specific details about exchange partnerships will be announced closer to the listing date."
+    }
+  ];
 
-export default function FAQ() {
   return (
-    <section className="py-20">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-5xl font-bold mb-4">FAQ</h2>
-          <p className="text-xl text-gray-400">Have any questions?</p>
-        </div>
+    <section id="faqs" className="py-20">
+      <div className="max-w-4xl mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl font-bold mb-4">
+            Frequently Asked <span className="gradient-text">Questions</span>
+          </h2>
+        </motion.div>
 
-        <div className="max-w-3xl mx-auto">
-          <Accordion type="single" collapsible className="space-y-4">
-            {FAQ_ITEMS.map((item, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="glass-card px-6 overflow-hidden border-[#F0B90B]/20"
-              >
-                <AccordionTrigger className="text-xl font-semibold hover:text-[#F0B90B] py-6">
-                  {item.question}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="space-y-4"
+        >
+          <Accordion type="single" collapsible>
+            {faqs.map((faq, index) => (
+              <AccordionItem key={index} value={`item-${index}`}>
+                <AccordionTrigger className="text-left">
+                  {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-400 pb-6">
-                  {item.answer}
+                <AccordionContent className="text-gray-400">
+                  {faq.answer}
                 </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

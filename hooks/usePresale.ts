@@ -5,6 +5,10 @@ import { PRESALE_ABI, ERC20_ABI } from '@/lib/contracts/abis';
 import { getWeb3Provider } from '@/lib/web3/provider';
 import { toast } from '@/components/ui/use-toast';
 import { UCCInfo, UserUCCInfo } from '@/lib/types';
+import { connect, getAccount, readContract, waitForTransactionReceipt, writeContract } from '@wagmi/core'
+import { injected } from '@wagmi/connectors'
+import { config } from '@/lib/config';
+import { parseEther } from 'viem';
 
 export enum PurchaseStatus {
   IDLE = 'IDLE',
@@ -30,21 +34,20 @@ export function usePresale() {
 
   async function initWallet() {
     try {
-      const _provider = await getWeb3Provider();
-      const _signer = await _provider.getSigner();
-      const _userAddress = await _signer.getAddress();
+      // const result = await connect(config, { connector: injected() })
+      const account = getAccount(config)
 
       // Presale Contract
-      const ps = new ethers.Contract(
-        ADDRESSES.PRESALE,
-        PRESALE_ABI,
-        _signer
-      );
-      setUserAddress(_userAddress);
-
-      console.log(_userAddress);
-      const ucci = await getUCCInfo(ps);
-      const useri = await getUserInfo(ps, _userAddress, curPage);
+      // const ps = new ethers.Contract(
+      //   ADDRESSES.PRESALE,
+      //   PRESALE_ABI,
+      //   _signer
+      // );
+      setUserAddress(account?.address || "");
+      // console.log(account?.address || "");
+      // console.log(_userAddress);
+      const ucci = await getUCCInfo();
+      const useri = await getUserInfo( account?.address || "", curPage);
       setUCCInfo(ucci);
       setUserUCCInfo(useri);
     } catch (error) {
@@ -56,55 +59,74 @@ export function usePresale() {
   const buyWithUSDT = async (amount: string) => {
     try {
       // Approve USDT
-      const _provider = await getWeb3Provider();
-      const _signer = await _provider.getSigner();
-      const _userAddress = await _signer.getAddress();
-      const ps = new ethers.Contract(
-        ADDRESSES.PRESALE,
-        PRESALE_ABI,
-        _signer
-      );
-      const ua = new ethers.Contract(
-        ADDRESSES.USDT,
-        ERC20_ABI,
-        _signer
-      )
+      const account = getAccount(config)
+      const _userAddress = account.address || "";
+      
 
       setStatus(PurchaseStatus.APPROVING);
-      const parsedAmount = ethers.parseUnits(amount, 18);
+      const parsedAmount = parseEther(amount);
       const urlParams = new URLSearchParams(window.location.search);
       const ref = parseInt(urlParams.get('ref') || '0') || 0;
-      const approveTx = await ua.approve(
-        ADDRESSES.PRESALE,
-        parsedAmount
-      );
-      await approveTx.wait();
-      setStatus(PurchaseStatus.APPROVED);
+      const approveTx = await writeContract(config, {
+        abi: ERC20_ABI,
+        address: ADDRESSES.USDT,
+        functionName: 'approve',
+        args: [
+          ADDRESSES.PRESALE,
+          parsedAmount,
+        ],
+      })
+
+      const approveTxTransactionReceipt = waitForTransactionReceipt(config, {
+        hash: approveTx,
+      })
+      approveTxTransactionReceipt.then(() => {
+        setStatus(PurchaseStatus.APPROVED);
+      })
+      setStatus(PurchaseStatus.PURCHASING);
 
       // Buy tokens
-      setStatus(PurchaseStatus.PURCHASING);
-      const buyTx = await ps.buy(
-        _userAddress,
-        ref, // ref
-        parsedAmount
-      );
-      await buyTx.wait();
+      
+      // const buyTx = await ps.buy(
+      //   _userAddress,
+      //   ref, // ref
+      //   parsedAmount
+      // );
+      const buyTx = await writeContract(config, {
+        abi: PRESALE_ABI,
+        address: ADDRESSES.PRESALE,
+        functionName: 'buy',
+        args: [
+          _userAddress,
+          ref, // ref
+          parsedAmount
+        ],
+        // value: parsedAmount
+      })
+
+      const buyTxTransactionReceipt = waitForTransactionReceipt(config, {
+        hash: buyTx,
+      })
+      
       // Fetch and update only the necessary data
-      const ucci = await getUCCInfo(ps);
-      const useri = await getUserInfo(ps, _userAddress, 1);
-      setUCCInfo(ucci);
-      setUserUCCInfo(useri);
+      const ucci = await getUCCInfo();
+      const useri = await getUserInfo( _userAddress, 1);
+      buyTxTransactionReceipt.then(() => {
+        setUCCInfo(ucci);
+        setUserUCCInfo(useri);
+  
+        setStatus(PurchaseStatus.CONFIRMED);
+        toast.success(
+          "Purchase completed successfully!",
+          {
+            duration: 3000,
+            position: "top-right",
+          }
+        );
+        setStatus(PurchaseStatus.IDLE);
+      })
 
-      setStatus(PurchaseStatus.CONFIRMED);
 
-      toast.success(
-        "Purchase completed successfully!",
-        {
-          duration: 3000,
-          position: "top-right",
-        }
-      );
-      setStatus(PurchaseStatus.IDLE);
     } catch (error: any) {
       console.log(error.reason);
       setStatus(PurchaseStatus.ERROR);
@@ -120,42 +142,49 @@ export function usePresale() {
 
   const buyWithBNB = async (amount: string) => {
     try {
-      const _provider = await getWeb3Provider();
-      const _signer = await _provider.getSigner();
-      const _userAddress = await _signer.getAddress();
-      const ps = new ethers.Contract(
-        ADDRESSES.PRESALE,
-        PRESALE_ABI,
-        _signer
-      );
+
+      const account = getAccount(config)
+      const _userAddress = account.address || "";
+
 
       setStatus(PurchaseStatus.PURCHASING);
-      const parsedAmount = ethers.parseEther(amount);
+      const parsedAmount = parseEther(amount);
       console.log(parsedAmount);
       const urlParams = new URLSearchParams(window.location.search);
       const ref = parseInt(urlParams.get('ref') || '0') || 0;
-      const buyTx = await ps.buy(
-        _userAddress,
-        ref, // ref
-        0,
-        { value: parsedAmount }
-      );
-      await buyTx.wait();
+      const buyTx = await writeContract(config, {
+        abi:PRESALE_ABI,
+        address: ADDRESSES.PRESALE,
+        functionName: 'buy',
+        args: [
+          _userAddress,
+          ref, // ref
+          0,
+        ],
+        // value: parsedAmount
+      })
+     
       // Fetch and update only the necessary data
-      const ucci = await getUCCInfo(ps);
-      const useri = await getUserInfo(ps, _userAddress, 1);
-      setUCCInfo(ucci);
-      setUserUCCInfo(useri);
-      setStatus(PurchaseStatus.CONFIRMED);
+      const ucci = await getUCCInfo();
+      const useri = await getUserInfo( _userAddress, 1);
 
-      toast.success(
-        "Purchase completed successfully!",
-        {
-          duration: 3000,
-          position: "top-right",
-        }
-      );
-      setStatus(PurchaseStatus.IDLE);
+      const buyTxTransactionReceipt = waitForTransactionReceipt(config, {
+        hash: buyTx,
+      })
+      buyTxTransactionReceipt.then(() => {
+        setUCCInfo(ucci);
+        setUserUCCInfo(useri);
+        setStatus(PurchaseStatus.CONFIRMED);
+        toast.success(
+          "Purchase completed successfully!",
+          {
+            duration: 3000,
+            position: "top-right",
+          }
+        );
+        setStatus(PurchaseStatus.IDLE);
+      })
+
 
     } catch (error: any) {
       console.log(error.reason);
@@ -170,14 +199,38 @@ export function usePresale() {
     }
   };
 
-  async function getUCCInfo(ps: ethers.Contract): Promise<UCCInfo> {
+  async function getUCCInfo(): Promise<UCCInfo> {
     try {
-      const totalInvestmentsUSDT = await ps.totalInvestmentsUSDT();
-      const totalInvestmentsBNB = await ps.totalInvestmentsBNB();
-      const totalUsers = await ps.totalUsers();
-      const priceUSDT = await ps.price();
-      const priceBNB = await ps.priceBNB();
-      const totalTokensToBEDistributed = await ps.totalTokensToBEDistributed();
+      const totalInvestmentsUSDT= await readContract(config, {
+        abi: PRESALE_ABI,
+        address: ADDRESSES.PRESALE,
+        functionName: 'totalInvestmentsUSDT',
+      })
+      const totalInvestmentsBNB= await readContract(config, {
+        abi: PRESALE_ABI,
+        address: ADDRESSES.PRESALE,
+        functionName: 'totalInvestmentsBNB',
+      })
+      const totalUsers: any = await readContract(config, {
+        abi: PRESALE_ABI,
+        address: ADDRESSES.PRESALE,
+        functionName: 'totalUsers',
+      })
+      const priceUSDT= await readContract(config, {
+        abi: PRESALE_ABI,
+        address: ADDRESSES.PRESALE,
+        functionName: 'price',
+      })
+      const priceBNB= await readContract(config, {
+        abi: PRESALE_ABI,
+        address: ADDRESSES.PRESALE,
+        functionName: 'priceBNB',
+      })
+      const totalTokensToBEDistributed= await readContract(config, {
+        abi: PRESALE_ABI,
+        address: ADDRESSES.PRESALE,
+        functionName: 'totalTokensToBEDistributed',
+      })
   
 
       setTotalToken(b2i(totalTokensToBEDistributed));
@@ -199,21 +252,41 @@ export function usePresale() {
     }
   }
 
-  async function getUserInfo(ps: ethers.Contract, ua: string, cpage: number): Promise<UserUCCInfo> {
+  async function getUserInfo( ua: string, cpage: number): Promise<UserUCCInfo> {
     try {
 
-      const userId = await ps.id(ua);
-      const usersInfo = await ps.usersInfo(userId);
-      let activityLength = 0;
-      let recentActivities = [];
+      const userId:any = await readContract(config, {
+        abi: PRESALE_ABI,
+        address: ADDRESSES.PRESALE,
+        functionName: 'id',
+        args: [ua]
+      })
+      const usersInfo = await readContract(config, {
+        abi: PRESALE_ABI,
+        address: ADDRESSES.PRESALE,
+        functionName: 'usersInfo',
+        args: [userId]
+      })
+      let activityLength: any = 0;
+      let recentActivities: any = [];
       try {
-        if (parseInt(userId.toString()) == 0) {
+        if (parseInt(userId?.toString()) == 0) {
           recentActivities = [];
           activityLength = 0;
         } else {
-          activityLength = await ps.getUserActivitiesLength(userId);
-          recentActivities = await ps.getRecentActivities(userId, cpage);
-          console.log(recentActivities);
+          activityLength = await readContract(config, {
+            abi: PRESALE_ABI,
+            address: ADDRESSES.PRESALE,
+            functionName: 'getUserActivitiesLength',
+            args: [userId]
+          })
+          recentActivities = await readContract(config, {
+            abi: PRESALE_ABI,
+            address: ADDRESSES.PRESALE,
+            functionName: 'getRecentActivities',
+            args: [userId, cpage]
+          })
+          // console.log(recentActivities);
         }
       } catch (error) {
         recentActivities = [];

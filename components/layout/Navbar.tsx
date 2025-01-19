@@ -9,6 +9,7 @@ import { shortenAddress } from "@/lib/utils";
 import { usePresale } from "@/providers/provider";
 
 import { useAccount } from "wagmi";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,22 +24,11 @@ const {isConnected} = useAccount();
       <div className="w-[95%] relative mx-auto px-4 bg-background backdrop-blur-smx rounded-xl">
         <div className="flex items-center justify-between h-14 md:h-16">
           {/* Logo Section */}
-          <div className="flex items-center space-x-2">
-            <Link
-              href='/'
-              className="text-muted-foreground hover:text-foreground transition-colors font-light"
-            >
-              <Image
-                src="/images/icon.png"
-                alt="ucc-logo"
-                width={24}
-                height={24}
-                priority
-              />
+          <div className="flex items-center">
+            <Link href="/" className="flex items-center space-x-2">
+              <Image src='/logo.svg' width={40} height={40} alt="ucc Logo" className="w-32 h-32 md:w-full md:h-full" />
+              {/* <span className="text-xl font-bold">UCC</span> */}
             </Link>
-
-
-            <span className="text-lg md:text-xl font-normal">UCC</span>
           </div>
 
           
@@ -47,6 +37,20 @@ const {isConnected} = useAccount();
 
           <div className="hidden md:flex items-center space-x-4">
             <div className="social flex gap-2 items-center">
+            <Link
+                        href='https://t.me/universecryptochain'
+                        className="text-muted-foreground flex gap-1 items-center hover:text-foreground transition-colors font-light"
+                      >
+                        {/* <Image
+                          src="/images/telegram.svg"
+                          alt="telegram-logo"
+                          width={18}
+                          height={18}
+                          priority
+                        /> */}
+                        <span>Chat</span>
+
+                      </Link>
             <Link
                 href='https://x.com/ucchainofficial'
                 className="text-muted-foreground hover:text-foreground transition-colors font-light"
@@ -79,18 +83,18 @@ const {isConnected} = useAccount();
             >
               {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
             </Button> */}
-            <w3m-button />
+            {/* <ConnectButton /> */}
           </div>
 
           {/* Mobile Buttons */}
-          <div className="md:hidden">
+          <div className="">
             {/* <Button
               className="bg-primary text-black hover:text-white rounded-lg hover:bg-secondary h-8 text-sm px-4"
               onClick={initWallet}
             >
               {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
             </Button> */}
-            <w3m-button />
+            <ConnectButton/>
           </div>
 
           {/* Hamburger Menu for Mobile */}
@@ -106,8 +110,7 @@ const {isConnected} = useAccount();
 
             {/* Mobile Menu */}
             <div
-              className={`fixed inset-0 bg-black bg-opacity-90 z-50 transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"
-                }`}
+              className={`fixed inset-0 bg-black bg-opacity-90 z-50 transform transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"}`}
             >
               <div className="p-4 relative bg-dark flex flex-col h-full">
                 <div className="flex justify-between items-center mb-8">
@@ -151,7 +154,7 @@ const {isConnected} = useAccount();
                         /> 
                       </Link>
                       <Link
-                        href='https://x.com/ucchainofficial'
+                        href='https://t.me/universecryptochain'
                         className="text-muted-foreground flex gap-1 items-center hover:text-foreground transition-colors font-light"
                       >
                         <Image
@@ -180,7 +183,7 @@ const {isConnected} = useAccount();
                       </Link>
                     </div>
                     
-                      <w3m-button />
+                      <ConnectButton />
                     
                   </div>
                 </div>
