@@ -6,6 +6,7 @@ import { WhyUcchain } from '@/components/sections/WhyUcchain';
 import { Blockchain } from '@/components/sections/Blockchain';
 import { UcchainProjects } from '@/components/sections/UcchainProject';
 import { FAQ } from '@/components/sections/FAQ';
+import { Roadmap } from '@/components/sections/Roadmap';
 
 
 export default function Home() {
@@ -15,9 +16,10 @@ export default function Home() {
         <Hero />
         <WhyUcchain />
         <Blockchain />
+        <Roadmap />
         <UcchainProjects />
         <FAQ />
-        
+
       </div>
       <Footer />
     </main>
