@@ -1,12 +1,14 @@
 import { Suspense } from 'react';
 // import Navbar from '@/components/layout/Navbar';
-import Footer from '@/components/layout/Footer';
+// import Footer from '@/components/layout/Footer';
 import Hero from '@/components/sections/Hero';
 import { WhyUcchain } from '@/components/sections/WhyUcchain';
 import { Blockchain } from '@/components/sections/Blockchain';
 import { UcchainProjects } from '@/components/sections/UcchainProject';
 import { FAQ } from '@/components/sections/FAQ';
 import { Roadmap } from '@/components/sections/Roadmap';
+import { Footer } from '@/components/sections/Footer';
+import { Tokenomics } from '@/components/sections/Tokenomics';
 
 
 export default function Home() {
@@ -16,6 +18,7 @@ export default function Home() {
         <Hero />
         <WhyUcchain />
         <Blockchain />
+        <Tokenomics />
         <Roadmap />
         <UcchainProjects />
         <FAQ />

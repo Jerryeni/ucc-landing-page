@@ -24,12 +24,19 @@ const {isConnected} = useAccount();
       <div className="w-[95%] relative mx-auto px-4 bg-background backdrop-blur-smx rounded-xl">
         <div className="flex items-center justify-between h-14 md:h-16">
           {/* Logo Section */}
-          <div className="flex items-center">
+          <div className="hidden md:block flex items-center">
             <Link href="/" className="flex items-center space-x-2">
-              <Image src='/logo.svg' width={40} height={40} alt="ucc Logo" className="w-32 h-32 md:w-full md:h-full" />
-              {/* <span className="text-xl font-bold">UCC</span> */}
+              <Image src='/ucc-logo.svg' width={40} height={40} alt="ucc Logo" className="w-14 shadow-sm rounded-full shadow-yellow-500 h-14 " />
+              <span className="text-2xl font-normal">Universal Chain</span>
             </Link>
           </div>
+          <div className="md:hidden block flex items-center">
+            <Link href="/" className="flex items-center space-x-2">
+              <Image src='/ucc-logo.svg' width={40} height={40} alt="ucc Logo" className="w-14 shadow-sm rounded-full shadow-yellow-500 h-14 " />
+              {/* <span className="text-xl font-bold">Universal Chain</span> */}
+            </Link>
+          </div>
+
 
           
 

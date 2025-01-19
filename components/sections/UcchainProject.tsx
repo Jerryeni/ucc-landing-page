@@ -73,9 +73,7 @@ export function UcchainProjects() {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <Button className="gradient-btn rounded-full xbg-yellow-500/90 hover:bg-yellow-500 text-black">
-            Connect Wallet
-          </Button>
+         
         </motion.div>
       </div>
     </section>

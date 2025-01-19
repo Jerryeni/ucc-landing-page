@@ -20,7 +20,7 @@ export function WhyUcchain() {
     {
       title: "Proof of Authority (PoA) Mechanism",
       description: "Ucchain leverages the Proof of Authority (PoA) mechanism, replacing traditional consensus methods like Proof of Work (PoW) and Proof of Stake (PoS). In PoA, pre-assigned validators verify transactions, ensuring faster and more energy-efficient operations. This mechanism eliminates the need for extensive computational power while maintaining network security and reliability.",
-      src: "/img4.png"
+      src: "/img2.svg"
     },
     {
       title: "UCC Coin: The Native Currency",
@@ -30,7 +30,10 @@ export function WhyUcchain() {
   ];
 
   return (
-    <section id="why-us" className="py-20 ">
+    <section id="why-us" className="py-20 relative">
+      {/* <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(240,185,11,0.15),transparent_70%)]" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#F0B90B]/10 rounded-full blur-3xl" /> */}
+
       <div className="max-w-6xl mx-auto px-4 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -76,9 +79,7 @@ export function WhyUcchain() {
           viewport={{ once: true }}
           className="text-center mt-12"
         >
-          <Button className="gradient-btn rounded-full xbg-yellow-500/90 hover:bg-yellow-500 text-black">
-            Connect Wallet
-          </Button>
+          
         </motion.div>
       </div>
     </section>

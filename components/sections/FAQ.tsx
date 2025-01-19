@@ -32,7 +32,7 @@ export function FAQ() {
     },
     {
       question: "When will UCC be listed on exchanges?",
-      answer: "UCC is scheduled to be listed on major exchanges in Q3 2025. Specific details about exchange partnerships will be announced closer to the listing date."
+      answer: "UCC is scheduled to be listed on major exchanges in Q4 2025. Specific details about exchange partnerships will be announced closer to the listing date."
     }
   ];
 

@@ -54,7 +54,7 @@ export function Roadmap() {
           </p>
         </motion.div>
         <div className="relative">
-          <Image width={40} height={40} src="/roadmap.svg" alt="" className="w-[100%] mx-auto mt-10" />
+          <Image width={40} height={40} src="/roadmap(7).svg" alt="" className="w-[100%] mx-auto mt-10" />
         </div>
 
         {/* <div className="relative">

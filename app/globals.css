@@ -32,4 +32,7 @@ body {
 .glass-card {
   @apply bg-black/40 backdrop-blur-xl border border-[#F0B90B]/20 rounded-2xl;
 }
+.gradient-text {
+  @apply bg-clip-text text-transparent bg-gradient-to-r from-[#F0B90B] to-[#F0B90B];
+}
 
