@@ -45,7 +45,7 @@ export function FAQ() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4">
+          <h2 className="text-xl md:text-4xl font-bold mb-4">
             Frequently Asked <span className="gradient-text">Questions</span>
           </h2>
         </motion.div>

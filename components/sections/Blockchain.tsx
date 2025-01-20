@@ -57,7 +57,7 @@ const ConnectingLine = ({ start = { x: 0, y: 0 }, end = { x: 0, y: 0 }, delay = 
 
 export function Blockchain() {
   return (
-    <section className="py-t overflow-hidden relative">
+    <section id="blockcahin" className="py-t overflow-hidden relative">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(240,185,11,0.15),transparent_70%)]" />
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#F0B90B]/10 rounded-full blur-3xl" />
 
@@ -68,10 +68,10 @@ export function Blockchain() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4">
+          <h2 className="text-xl md:text-4xl font-bold mb-4">
             <span className="gradient-text">Blockchain</span> Architecture
           </h2>
-          <p className="text-muted/80 max-w-2xl mx-auto">
+          <p className="text-muted/80 max-w-md md:max-w-2xl text-xs md:text-sm mx-auto">
           Ucchain is built on a robust and innovative architecture designed to address the inefficiencies of traditional blockchains, offering a platform that is scalable, secure, and efficient.
           </p>
         </motion.div>

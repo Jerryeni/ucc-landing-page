@@ -45,10 +45,10 @@ export function Roadmap() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4">
+          <h2 className="text-xl md:text-4xl font-bold mb-4">
             Our Journey: Ucchain <span className="gradient-text">Roadmap</span>
           </h2>
-          <p className="text-muted/80 max-w-xl text-center mx-auto">
+          <p className="text-muted/80 max-w-md md:max-w-2xl text-xs md:text-sm text-center mx-auto">
             The Ucchain roadmap outlines the project's vision for growth and innovation,
             focusing on key milestones and future developments.
           </p>

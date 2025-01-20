@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Twitter, Send, ArrowUpRight } from "lucide-react";
+import { Twitter, Send, ArrowUpRight, Youtube, LinkedinIcon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -44,7 +44,7 @@ export function Footer() {
                 className="absolute inset-0"
               >
                 <div className="relative w-full">
-                  <Image src={require("../../public/image.png")} alt="refer" className="animate-bounce duration-50 w-[90%]" />
+                  <Image src={require("../../public/image.png")} alt="refer" className="animate-bouncex duration-50 w-[70%]" />
                   {/* Animated city skyline illustration */}
                   <div className="absolute bottom-0 right-0 w-full h-4/5">
                     <div className="relative w-full h-full">
@@ -72,7 +72,7 @@ export function Footer() {
                     transition={{ delay: 1.5, duration: 1 }}
                     className="absolute top-1/4 right-1/4 w-16 h-16 rounded-full animate-pulse bg-yellow-500/20 backdrop-blur-sm flex items-center justify-center"
                   >
-                    <div className="w-10 h-10 rounded-full bg-yellow-500/30 flex items-center justify-center">
+                    <div className=" rounded-full bg-yellow-500/30 flex items-center justify-center">
                       <div className="w-6 h-6 rounded-full bg-yellow-500/50" />
                     </div>
                   </motion.div>
@@ -83,7 +83,7 @@ export function Footer() {
           </div>
         </motion.div>
 
-        <Image src={require("../../public/images/bg.svg")} alt="refer" className="absolute bottom-1 h-96 w-full" />
+        <Image src={require("../../public/images/bg.svg")} alt="refer" className="absolute bottom-1 h-96 w-full -z-10" />
 
 
         {/* Footer Content */}
@@ -92,7 +92,7 @@ export function Footer() {
           <div className="md:block flex items-center">
             <Link href="/" className="flex items-center space-x-2 mb-2">
               <Image src='/ucc-logo.svg' width={40} height={40} alt="ucc Logo" className="w-10 shadow-sm rounded-full shadow-yellow-500 h-10 " />
-              <span className="text-2xl font-normal">Universal Chain</span>
+              <span className="text-2xl font-normal">Universe Chain</span>
             </Link>
           </div>
             <p className="text-gray-400 text-sm">
@@ -101,7 +101,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4">Quick Links</h3>
+            <h3 className="font-semibold mb-4">Ucchain Network</h3>
             <ul className="space-y-2 text-gray-400">
               <li>
                 <Link href="#why-us" className="hover:text-yellow-500 transition-colors">
@@ -109,15 +109,32 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="#blockchain" className="hover:text-yellow-500 transition-colors">
+                  Blockchain
+                </Link>
+              </li>
+              <li>
                 <Link href="#tokenomics" className="hover:text-yellow-500 transition-colors">
                   Tokenomics
                 </Link>
               </li>
+
               <li>
                 <Link href="#roadmap" className="hover:text-yellow-500 transition-colors">
                   Roadmap
                 </Link>
               </li>
+              <li>
+                <Link href="#projects" className="hover:text-yellow-500 transition-colors">
+                  Projects
+                </Link>
+              </li>
+              <li>
+                <Link href="#faqs" className="hover:text-yellow-500 transition-colors">
+                  FAQS
+                </Link>
+              </li>
+
             </ul>
           </div>
 
@@ -126,17 +143,33 @@ export function Footer() {
             <ul className="space-y-2 text-gray-400">
               <li>
                 <Link href="#faqs" className="hover:text-yellow-500 transition-colors">
-                  FAQs
+                  Wiki
                 </Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-yellow-500 transition-colors">
-                  Documentation
+                <Link href="#faqs" className="hover:text-yellow-500 transition-colors">
+                  Whitepaper
                 </Link>
               </li>
+              <li>
+                <Link href="#faqs" className="hover:text-yellow-500 transition-colors">
+                  Audit
+                </Link>
+              </li>
+              
               <li>
                 <Link href="#" className="hover:text-yellow-500 transition-colors">
                   Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-yellow-500 transition-colors">
+                  Term of use
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="hover:text-yellow-500 transition-colors">
+                  Cookie Policy
                 </Link>
               </li>
             </ul>
@@ -144,18 +177,45 @@ export function Footer() {
 
           <div>
             <h3 className="font-semibold mb-4">Socials</h3>
-            <div className="flex space-x-4">
+            <div className="flex flex-col justify-start gap-6">
               <Link 
                 href="#"
-                className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-center"
+                className=" rounded-full  transition-colors flex gap-4 items-center justify-start"
               >
-                <Twitter className="w-5 h-5" />
+                
+                <p className=" px-1 border rounded-full">X</p>
+                <p className=" text-muted/80">X</p>
               </Link>
               <Link 
                 href="#"
-                className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 transition-colors flex items-center justify-center"
+                className=" rounded-full  transition-colors flex gap-4 items-center justify-start"
               >
-                <Send className="w-5 h-5" />
+                <Send className="w-5 h-5 text-white" />
+                <p className="text-sm text-muted/80">Telegram</p>
+              </Link>
+              <Link 
+                href="#"
+                className=" rounded-full  transition-colors flex gap-4 items-center justify-start"
+              >
+                <Send className="w-5 h-5" /> 
+                <p className="text-sm text-muted/80">Chart</p>
+
+              </Link>
+              <Link 
+                href="#"
+                className=" rounded-full  transition-colors flex gap-4 items-center justify-start"
+              >
+                <Youtube className="w-5 h-5" /> 
+                <p className="text-sm text-muted/80">YouTube</p>
+
+              </Link>
+              <Link 
+                href="#"
+                className=" rounded-full  transition-colors flex gap-4 items-center justify-start"
+              >
+                <LinkedinIcon className="w-5 h-5" />
+                <p className="text-sm text-muted/80">LinkendIn</p>
+
               </Link>
             </div>
           </div>

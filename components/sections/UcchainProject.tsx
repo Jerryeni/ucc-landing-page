@@ -30,7 +30,7 @@ export function UcchainProjects() {
   ];
 
   return (
-    <section id="why-us" className="py-20 relative">
+    <section id="projects" className="py-20 relative">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(240,185,11,0.15),transparent_70%)]" />
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#F0B90B]/10 rounded-full blur-3xl" />
 
@@ -41,10 +41,10 @@ export function UcchainProjects() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl font-bold mb-4">
+          <h2 className="text-xl md:text-4xl font-bold mb-4">
             <span className="gradient-text"> Ucchain </span>Projects
           </h2>
-          <p className="text-muted/80">
+          <p className="text-muted/80 max-w-md md:max-w-2xl text-xs md:text-sm text-center mx-auto">
           Discover the innovative initiatives that are shaping the future of Ucchain.
           </p>
         </motion.div>

@@ -10,7 +10,7 @@ export function WhyUcchain() {
     {
       title: "Layer-2 Compatibility",
       description: "Ucchain supports Layer-2 solutions, enabling seamless integration with third-party applications.This compatibility allows developers to deploy decentralized applications (dApps), NFTs, and other projects on the Ucchain Chain, leveraging its scalability and low transaction fees. Similar to Other Chains, Ucchain fosters an ecosystem where multiple projects can thrive while relying on the UCC Coin for transaction fees and utility.",
-      src: "/images/bg2.png"
+      src: "/image.png"
     },
     {
       title: "Scalability and Speed",
@@ -25,7 +25,7 @@ export function WhyUcchain() {
     {
       title: "UCC Coin: The Native Currency",
       description: "At the core of the Ucchain ecosystem lies UCC Coin, the native cryptocurrency that powers all operations on the blockchain. ",
-      src: "/images/bg2.png"
+      src: "/img4.svg"
     }
   ];
 
@@ -45,10 +45,10 @@ export function WhyUcchain() {
           <Image width={40} height={40} src="/images/bg.png" alt="" className="w-full absolute animate-pulsex -mt-32 -z-5 mx-auto top-0" />
 
         </div>
-          <h2 className="text-4xl font-bold mb-4">
+          <h2 className="text-xl md:text-4xl font-bold mb-4">
             About <span className="gradient-text">Ucchain</span>
           </h2>
-          <p className="text-muted/80 max-w-3xl mx-auto text-sm">
+          <p className="text-muted/80 max-w-md md:max-w-3xl text-xs md:text-sm mx-auto text-sm">
           Ucchain is a next-generation blockchain platform designed to overcome the limitations of traditional systems by offering unmatched speed, scalability, and efficiency. Built on the revolutionary Proof of Authority (PoA) mechanism, Ucchain ensures secure and eco-friendly transaction validation while addressing the needs of decentralized finance, NFTs, gaming, and enterprise solutions.
           </p>
         </motion.div>
@@ -61,12 +61,12 @@ export function WhyUcchain() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2 }}
-              className="glass-card  rounded-xl relative"
+              className="glass-card rounded-xl relative"
             >
               <h3 className="text text-[#FFFDF0]/80 p-6 font-semibold mb-2">{feature.title}</h3>
               <p className="text-white p-6 text-xs">{feature.description}</p>
               <div className="">
-                <Image width={40} height={40} src={feature.src} alt="" className="w-[80%] mx-auto mt-10" />
+                <Image width={40} height={40} src={feature.src} alt="" className=" bottom-0 w-[80%] h-40 mx-auto mt-10" />
 
               </div>
             </motion.div>

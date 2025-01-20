@@ -14,7 +14,7 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const { initWallet, userAddress } = usePresale();
-const {isConnected} = useAccount();
+  const { isConnected } = useAccount();
 
   useEffect(() => {
   }, [userAddress]);
@@ -27,7 +27,7 @@ const {isConnected} = useAccount();
           <div className="hidden md:block items-center">
             <Link href="/" className="flex items-center space-x-2">
               <Image src='/ucc-logo.svg' width={40} height={40} alt="ucc Logo" className="w-14 shadow-sm rounded-full shadow-yellow-500 h-14 " />
-              <span className="text-2xl font-normal">Universal Chain</span>
+              <span className="text-2xl font-normal">Universe Chain</span>
             </Link>
           </div>
           <div className="md:hidden  flex items-center">
@@ -38,27 +38,21 @@ const {isConnected} = useAccount();
           </div>
 
 
-          
+
 
           {/* Desktop Buttons */}
 
-          <div className="hidden md:flex items-center space-x-4">
+          {/* <div className="hidden md:flex items-center space-x-4">
             <div className="social flex gap-2 items-center">
-            <Link
-                        href='https://t.me/universecryptochain'
-                        className="text-muted-foreground flex gap-1 items-center hover:text-foreground transition-colors font-light"
-                      >
-                        {/* <Image
-                          src="/images/telegram.svg"
-                          alt="telegram-logo"
-                          width={18}
-                          height={18}
-                          priority
-                        /> */}
-                        <span>Chat</span>
+              <Link
+                href='https://t.me/universecryptochain'
+                className="text-muted-foreground flex gap-1 items-center hover:text-foreground transition-colors font-light"
+              >
 
-                      </Link>
-            <Link
+                <span>Chat</span>
+
+              </Link>
+              <Link
                 href='https://x.com/ucchainofficial'
                 className="text-muted-foreground hover:text-foreground transition-colors font-light"
               >
@@ -69,7 +63,7 @@ const {isConnected} = useAccount();
                   height={24}
                   priority
                 />
-                
+
               </Link>
               <Link
                 href='https://t.me/ucchaincommunity'
@@ -84,24 +78,37 @@ const {isConnected} = useAccount();
                 />
               </Link>
             </div>
-            {/* <Button
-              className="bg-primary !rounded-xl hover:bg-secondary h-10 text-sm text-white inset-0"
-              onClick={initWallet}
-            >
-              {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
-            </Button> */}
-            {/* <ConnectButton /> */}
+
+
+          </div> */}
+
+          <div className="hidden md:block">
+            <div className="flex items-center space-x-8">
+              <Link href="#why-us" className="text-[#A6A9A8] hover:text-white transition-colors">
+                About us
+              </Link>
+              <Link href="#blockchain" className="text-[#A6A9A8] hover:text-white transition-colors">
+                Blockchain
+              </Link>
+              <Link href="#tokenomics" className="text-[#A6A9A8] hover:text-white transition-colors">
+                Tokenomics
+              </Link>
+              <Link href="#roadmap" className="text-[#A6A9A8] hover:text-white transition-colors">
+                Roadmap
+              </Link>
+              <Link href="#projects" className="text-[#A6A9A8] hover:text-white transition-colors">
+                Projects
+              </Link>
+              <Link href="#faqs" className="text-[#A6A9A8] hover:text-white transition-colors">
+                FAQs
+              </Link>
+            </div>
           </div>
 
           {/* Mobile Buttons */}
           <div className="">
-            {/* <Button
-              className="bg-primary text-black hover:text-white rounded-lg hover:bg-secondary h-8 text-sm px-4"
-              onClick={initWallet}
-            >
-              {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
-            </Button> */}
-            <ConnectButton/>
+
+            <ConnectButton />
           </div>
 
           {/* Hamburger Menu for Mobile */}
@@ -123,12 +130,13 @@ const {isConnected} = useAccount();
                 <div className="flex justify-between items-center mb-8">
                   <div className="flex items-center space-x-2">
                     <Image
-                      src="/images/icon.png"
+                      src="/ucc-logo.svg"
                       alt="ucc-logo"
                       width={24}
                       height={24}
+                      className="w-10 h-10"
                     />
-                    <span className="text-white text-lg font-normal">ucc</span>
+                    <span className="text-white text-lg font-normal">Universe Chain</span>
                   </div>
                   <Button
                     variant="ghost"
@@ -139,26 +147,47 @@ const {isConnected} = useAccount();
                     <X className="h-6 w-6" />
                   </Button>
                 </div>
-
+                <div className="flex flex-col justify-start gap-8 items-centerx px-4">
+                  <Link href="#why-us" className="text-[#A6A9A8] hover:text-white transition-colors">
+                    About us
+                  </Link>
+                  <Link href="#blockchain" className="text-[#A6A9A8] hover:text-white transition-colors">
+                    Blockchain
+                  </Link>
+                  <Link href="#tokenomics" className="text-[#A6A9A8] hover:text-white transition-colors">
+                    Tokenomics
+                  </Link>
+                  <Link href="#roadmap" className="text-[#A6A9A8] hover:text-white transition-colors">
+                    Roadmap
+                  </Link>
+                  <Link href="#projects" className="text-[#A6A9A8] hover:text-white transition-colors">
+                    Projects
+                  </Link>
+                  <Link href="#faqs" className="text-[#A6A9A8] hover:text-white transition-colors">
+                    FAQs
+                  </Link>
+                </div>
                 
+
+
 
                 {/* Buttons in Mobile Menu */}
                 <div className="mt-auto space-y-6">
                   <div className="flex flex-col items-center space-y-4">
-                   
+
                     <div className="social flex gap-4 items-center">
                       <Link
                         href='https://x.com/ucchainofficial'
                         className="text-muted-foreground flex items-center hover:text-foreground transition-colors font-light"
                       >
-                        
+
                         <Image
                           src="/images/x.svg"
                           alt="ucc-logo"
                           width={24}
                           height={24}
                           priority
-                        /> 
+                        />
                       </Link>
                       <Link
                         href='https://t.me/universecryptochain'
@@ -189,9 +218,9 @@ const {isConnected} = useAccount();
 
                       </Link>
                     </div>
-                    
-                      <ConnectButton />
-                    
+
+                    <ConnectButton />
+
                   </div>
                 </div>
               </div>
