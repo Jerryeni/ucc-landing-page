@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Twitter, Send, ArrowUpRight, Youtube, LinkedinIcon } from "lucide-react";
+import { Twitter, Send, ArrowUpRight, Youtube, LinkedinIcon, Instagram, LucideSignalMedium, SunMedium } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -89,12 +89,12 @@ export function Footer() {
         {/* Footer Content */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-20">
           <div>
-          <div className="md:block flex items-center">
-            <Link href="/" className="flex items-center space-x-2 mb-2">
-              <Image src='/ucc-logo.svg' width={40} height={40} alt="ucc Logo" className="w-10 shadow-sm rounded-full shadow-yellow-500 h-10 " />
-              <span className="text-2xl font-normal">Universe Chain</span>
-            </Link>
-          </div>
+            <div className="md:block flex items-center">
+              <Link href="/" className="flex items-center space-x-2 mb-2">
+                <Image src='/ucc-logo.svg' width={40} height={40} alt="ucc Logo" className="w-10 shadow-sm rounded-full shadow-yellow-500 h-10 " />
+                <span className="text-2xl font-normal">Universe Chain</span>
+              </Link>
+            </div>
             <p className="text-gray-400 text-sm">
               © 2025 Ucchain Network. All rights reserved.
             </p>
@@ -147,7 +147,7 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="#faqs" className="hover:text-yellow-500 transition-colors">
+                <Link href="/Whitepaper.pdf" download className="hover:text-yellow-500 transition-colors">
                   Whitepaper
                 </Link>
               </li>
@@ -156,7 +156,7 @@ export function Footer() {
                   Audit
                 </Link>
               </li>
-              
+
               <li>
                 <Link href="#" className="hover:text-yellow-500 transition-colors">
                   Privacy Policy
@@ -178,43 +178,60 @@ export function Footer() {
           <div>
             <h3 className="font-semibold mb-4">Socials</h3>
             <div className="flex flex-col justify-start gap-6">
-              <Link 
-                href="#"
+              <Link
+                href="https://x.com/ucchainofficial"
                 className=" rounded-full  transition-colors flex gap-4 items-center justify-start"
               >
-                
+
                 <p className=" px-1 border rounded-full">X</p>
                 <p className=" text-muted/80">X</p>
               </Link>
-              <Link 
-                href="#"
+              <Link
+                href="https://t.me/universecryptochain"
                 className=" rounded-full  transition-colors flex gap-4 items-center justify-start"
               >
                 <Send className="w-5 h-5 text-white" />
                 <p className="text-sm text-muted/80">Telegram</p>
               </Link>
-              <Link 
-                href="#"
+              <Link
+                href="https://t.me/ucchaincommunity"
                 className=" rounded-full  transition-colors flex gap-4 items-center justify-start"
               >
-                <Send className="w-5 h-5" /> 
+                <Send className="w-5 h-5" />
                 <p className="text-sm text-muted/80">Chart</p>
 
               </Link>
-              <Link 
-                href="#"
+              <Link
+                href="https://www.instagram.com/universecryptochain/"
                 className=" rounded-full  transition-colors flex gap-4 items-center justify-start"
               >
-                <Youtube className="w-5 h-5" /> 
+                <Instagram className="w-5 h-5" />
+                <p className="text-sm text-muted/80">Instagram</p>
+
+              </Link>
+              <Link
+                href="https://www.instagram.com/universecryptochain/"
+                className=" rounded-full  transition-colors flex gap-4 items-center justify-start"
+              >
+                <SunMedium className="w-5 h-5  border rounded-full" />
+                <p className="text-sm text-muted/80">Medium</p>
+
+              </Link>
+              <Link
+                href="https://www.youtube.com/@UniverseCryptoChain"
+                className=" rounded-full  transition-colors flex gap-4 items-center justify-start"
+              >
+                <Youtube className="w-5 h-5" />
                 <p className="text-sm text-muted/80">YouTube</p>
 
               </Link>
-              <Link 
-                href="#"
+              <Link
+                href="https://discord.gg/T5xwStBn"
                 className=" rounded-full  transition-colors flex gap-4 items-center justify-start"
               >
-                <LinkedinIcon className="w-5 h-5" />
-                <p className="text-sm text-muted/80">LinkendIn</p>
+                {/* <Discord className="w-5 h-5" /> */}
+                <p className=" px-1 border rounded-full">D</p>
+                <p className="text-sm text-muted/80">Discord</p>
 
               </Link>
             </div>

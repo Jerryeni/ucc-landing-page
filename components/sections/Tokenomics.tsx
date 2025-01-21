@@ -56,7 +56,7 @@ const PieChart = () => {
               className="w-4 h-4 inline-block rounded-full"
               style={{ backgroundColor: item.color }}
             ></span>
-            <span className="text-sm">{`${item.name}: ${item.value}%`}</span>
+            <span className="  text-muted/80">{`${item.name}: ${item.value}%`}</span>
           </div>
         ))}
       </div>
