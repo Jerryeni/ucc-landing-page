@@ -82,7 +82,7 @@ export function Navbar() {
 
           </div> */}
 
-          <div className="hidden md:block">
+          {/* <div className="hidden md:block">
             <div className="flex items-center space-x-8">
               <Link href="#why-us" className="text-[#A6A9A8] hover:text-white transition-colors">
                 About us
@@ -99,15 +99,17 @@ export function Navbar() {
               <Link href="#projects" className="text-[#A6A9A8] hover:text-white transition-colors">
                 Projects
               </Link>
-              <Link href="#faqs" className="text-[#A6A9A8] hover:text-white transition-colors">
+              <Link href="#faqs" className="text-[#A6A9A8] hover:text-white transition-colors ">
                 FAQs
               </Link>
             </div>
-          </div>
+          </div> */}
 
           {/* Mobile Buttons */}
-          <div className="">
-
+          <div className="flex items-center  gap-4">
+            <Link href="https://ucchain.org" className="text-[#A6A9A8] hover:text-white transition-colors">
+              Back to Home
+            </Link>
             <ConnectButton />
           </div>
 
@@ -147,7 +149,7 @@ export function Navbar() {
                     <X className="h-6 w-6" />
                   </Button>
                 </div>
-                <div className="flex flex-col justify-start gap-8 items-centerx px-4">
+                <div className="flex hidden flex-col justify-start gap-8 items-centerx px-4">
                   <Link href="#why-us" className="text-[#A6A9A8] hover:text-white transition-colors">
                     About us
                   </Link>
@@ -167,7 +169,7 @@ export function Navbar() {
                     FAQs
                   </Link>
                 </div>
-                
+
 
 
 
