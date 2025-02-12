@@ -106,7 +106,7 @@ export function Navbar() {
           </div> */}
 
           {/* Mobile Buttons */}
-          <div className="flex items-center  gap-4">
+          <div className="hidden md:flex items-center  gap-4">
             <Link href="https://ucchain.org" className="text-[#A6A9A8] hover:text-white transition-colors">
               Back to Home
             </Link>
@@ -180,7 +180,9 @@ export function Navbar() {
                 {/* Buttons in Mobile Menu */}
                 <div className="mt-auto space-y-6">
                   <div className="flex flex-col items-center space-y-4">
-
+                    <Link href="https://ucchain.org" className="text-[#A6A9A8] hover:text-white transition-colors">
+                      Back to Home
+                    </Link>
                     <div className="social flex gap-4 items-center">
                       <Link
                         href='https://x.com/ucchainofficial'
