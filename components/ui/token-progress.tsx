@@ -133,7 +133,7 @@ export function TokenProgress({
                 className="w-3 h-3 md:w-5 md:h-5"
               />
               <span className="text-[#F0B90B] md:text-sm text-[8px] font-semibold ">
-                0.125 USDT
+                0.15 USDT
               </span>
             </div>
           </div>

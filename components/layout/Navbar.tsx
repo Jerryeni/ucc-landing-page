@@ -110,7 +110,14 @@ export function Navbar() {
             <Link href="https://ucchain.org" className="text-[#A6A9A8] hover:text-white transition-colors">
               Back to Home
             </Link>
-            <ConnectButton />
+            {/* <ConnectButton /> */}
+
+            <Button
+              className="bg-primary !rounded-xl hover:bg-secondary hover:text-white hover:border hover:border-primary h-10 text-sm text-black inset-0"
+              onClick={initWallet}
+            >
+              {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
+            </Button>
           </div>
 
           {/* Hamburger Menu for Mobile */}
@@ -170,9 +177,6 @@ export function Navbar() {
                   </Link>
                 </div>
 
-
-
-
                 {/* Buttons in Mobile Menu */}
                 <div className="mt-auto space-y-6">
                   <div className="flex flex-col items-center space-y-4">
@@ -221,7 +225,14 @@ export function Navbar() {
                       </Link>
                     </div>
 
-                    <ConnectButton />
+                    {/* <ConnectButton /> */}
+
+                    <Button
+                      className="bg-primary !rounded-xl hover:bg-primary/20 h-10 text-sm text-black inset-0"
+                      onClick={initWallet}
+                    >
+                      {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
+                    </Button>
 
                   </div>
                 </div>
