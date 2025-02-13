@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { X, Menu } from "lucide-react";
+import { X, Menu, ArrowLeft } from "lucide-react";
 import { useEffect, useState } from "react";
 import { shortenAddress } from "@/lib/utils";
 import { usePresale } from "@/providers/provider";
@@ -106,19 +106,19 @@ export function Navbar() {
           </div> */}
 
           {/* Mobile Buttons */}
-          <div className="hidden md:flex items-center  gap-4">
-            <Link href="https://ucchain.org" className="text-[#A6A9A8] hover:text-white transition-colors">
+          <div className="md:flex flex items-center  gap-1">
+            <ArrowLeft className="md:w-4 md:h-4 w-3 h-3 text-yellow-500" />
+            <Link href="https://ucchain.org" className="text-[#A6A9A8] text-[8px] md:text-base hover:text-white transition-colors">
               Back to Home
             </Link>
-            {/* <ConnectButton /> */}
 
-            <Button
-              className="bg-primary !rounded-xl hover:bg-secondary hover:text-white hover:border hover:border-primary h-10 text-sm text-black inset-0"
-              onClick={initWallet}
-            >
-              {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
-            </Button>
           </div>
+          <Button
+            className="bg-primary !rounded-xl hover:bg-secondary hover:text-white hover:border hover:border-primary h-10 text-sm text-black inset-0"
+            onClick={initWallet}
+          >
+            {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
+          </Button>
 
           {/* Hamburger Menu for Mobile */}
           <div className="md:hidden">
@@ -177,6 +177,9 @@ export function Navbar() {
                   </Link>
                 </div>
 
+
+
+
                 {/* Buttons in Mobile Menu */}
                 <div className="mt-auto space-y-6">
                   <div className="flex flex-col items-center space-y-4">
@@ -227,10 +230,8 @@ export function Navbar() {
                       </Link>
                     </div>
 
-                    {/* <ConnectButton /> */}
-
                     <Button
-                      className="bg-primary !rounded-xl hover:bg-primary/20 h-10 text-sm text-black inset-0"
+                      className="bg-primary !rounded-xl hover:bg-secondary hover:text-white hover:border hover:border-primary h-10 text-sm text-black inset-0"
                       onClick={initWallet}
                     >
                       {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
