@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { X, Menu, ArrowLeft } from "lucide-react";
-import { useEffect, useState } from "react";
+import { X, Menu, ArrowLeft, ChevronDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { shortenAddress } from "@/lib/utils";
 import { usePresale } from "@/providers/provider";
 
@@ -13,11 +13,22 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { initWallet, userAddress } = usePresale();
-  const { isConnected } = useAccount();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
+  const { initWallet, userAddress, disconnectWallet } = usePresale();
+
+  // Close dropdown when clicking outside
   useEffect(() => {
-  }, [userAddress]);
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
 
   return (
     <nav className="fixed top-3 w-full z-50">
@@ -40,70 +51,6 @@ export function Navbar() {
 
 
 
-          {/* Desktop Buttons */}
-
-          {/* <div className="hidden md:flex items-center space-x-4">
-            <div className="social flex gap-2 items-center">
-              <Link
-                href='https://t.me/universecryptochain'
-                className="text-muted-foreground flex gap-1 items-center hover:text-foreground transition-colors font-light"
-              >
-
-                <span>Chat</span>
-
-              </Link>
-              <Link
-                href='https://x.com/ucchainofficial'
-                className="text-muted-foreground hover:text-foreground transition-colors font-light"
-              >
-                <Image
-                  src="/images/x.svg"
-                  alt="x-logo"
-                  width={24}
-                  height={24}
-                  priority
-                />
-
-              </Link>
-              <Link
-                href='https://t.me/ucchaincommunity'
-                className="text-muted-foreground hover:text-foreground transition-colors font-light"
-              >
-                <Image
-                  src="/images/telegram.svg"
-                  alt="telegram-logo"
-                  width={24}
-                  height={24}
-                  priority
-                />
-              </Link>
-            </div>
-
-
-          </div> */}
-
-          {/* <div className="hidden md:block">
-            <div className="flex items-center space-x-8">
-              <Link href="#why-us" className="text-[#A6A9A8] hover:text-white transition-colors">
-                About us
-              </Link>
-              <Link href="#blockchain" className="text-[#A6A9A8] hover:text-white transition-colors">
-                Blockchain
-              </Link>
-              <Link href="#tokenomics" className="text-[#A6A9A8] hover:text-white transition-colors">
-                Tokenomics
-              </Link>
-              <Link href="#roadmap" className="text-[#A6A9A8] hover:text-white transition-colors">
-                Roadmap
-              </Link>
-              <Link href="#projects" className="text-[#A6A9A8] hover:text-white transition-colors">
-                Projects
-              </Link>
-              <Link href="#faqs" className="text-[#A6A9A8] hover:text-white transition-colors ">
-                FAQs
-              </Link>
-            </div>
-          </div> */}
 
           {/* Mobile Buttons */}
           <div className="md:flex flex items-center  gap-1">
@@ -113,13 +60,42 @@ export function Navbar() {
             </Link>
 
           </div>
-          <Button
-            className="bg-primary !rounded-xl hover:bg-secondary hover:text-white hover:border hover:border-primary h-10 text-sm text-black inset-0"
-            onClick={initWallet}
-          >
-            {userAddress === "" ? "Connect Wallet" : shortenAddress(userAddress)}
-          </Button>
+          <div className="relative">
+              <Button
+                className="bg-primary !rounded-xl hover:bg-secondary hover:text-white hover:border hover:border-primary h-10 text-sm text-black flex items-center gap-2"
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+              >
+                {userAddress ? shortenAddress(userAddress) : "Connect Wallet"}
+                <ChevronDown className="h-4 w-4" />
+              </Button>
 
+              {/* Dropdown Menu */}
+              {dropdownOpen && (
+                <div className="absolute right-0 mt-2 w-48 bg-white shadow-md rounded-lg py-2 text-black">
+                  {userAddress ? (
+                    <button
+                      className="block px-4 py-2 text-left hover:bg-gray-100 w-full"
+                      onClick={() => {
+                        disconnectWallet();
+                        setDropdownOpen(false);
+                      }}
+                    >
+                      Disconnect
+                    </button>
+                  ) : (
+                    <button
+                      className="block px-4 py-2 text-left hover:bg-gray-100 w-full"
+                      onClick={() => {
+                        initWallet();
+                        setDropdownOpen(false);
+                      }}
+                    >
+                      Connect Wallet
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
           {/* Hamburger Menu for Mobile */}
           <div className="md:hidden">
             <Button

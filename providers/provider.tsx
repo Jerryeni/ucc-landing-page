@@ -15,13 +15,14 @@ export const PresaleProvider = ({ children }: { children: ReactNode }) => {
     buyWithUSDT,
     buyWithBNB,
     resetStatus,
+    disconnectWallet,
     initWallet} = usePresaleHook();
 
-useEffect(() => {
-  initWallet().then(() => {
-    console.log("done")
-  });
-},[curPage,userAddress,totalTokens])
+// useEffect(() => {
+//   initWallet().then(() => {
+//     console.log("done")
+//   });
+// },[curPage,userAddress,totalTokens])
 
   return (
     <PresaleContext.Provider value={{status,
@@ -33,6 +34,7 @@ useEffect(() => {
         buyWithUSDT,
         buyWithBNB,
         resetStatus,
+        disconnectWallet,
         initWallet}}>
       {children}
     </PresaleContext.Provider>    

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { ethers, formatUnits } from 'ethers';
 import { ADDRESSES } from '@/lib/contracts/addresses';
 import { PRESALE_ABI, ERC20_ABI } from '@/lib/contracts/abis';
@@ -34,87 +34,76 @@ export function usePresale() {
       const _signer = await _provider.getSigner();
       const _userAddress = await _signer.getAddress();
 
-      // Presale Contract
-      const ps = new ethers.Contract(
-        ADDRESSES.PRESALE,
-        PRESALE_ABI,
-        _signer
-      );
+      if (!_userAddress) {
+        throw new Error("No wallet connected.");
+      }
+
       setUserAddress(_userAddress);
 
-      console.log(_userAddress);
+      // Presale Contract
+      const ps = new ethers.Contract(ADDRESSES.PRESALE, PRESALE_ABI, _signer);
       const ucci = await getUCCInfo(ps);
       const useri = await getUserInfo(ps, _userAddress, curPage);
+
       setUCCInfo(ucci);
       setUserUCCInfo(useri);
-    } catch (error) {
-      console.error(error);
-    }
 
-  };
+      console.log("Wallet connected:", _userAddress);
+    } catch (error) {
+      console.error("Wallet connection failed:", error);
+      toast.error("Wallet connection failed. Please try again.");
+    }
+  }
+
+  async function disconnectWallet() {
+    try {
+      setUserAddress("");
+      setUserUCCInfo({ userId: 0, usersInfo: null, recentActivities: [], activityLength: 0 });
+      setUCCInfo({ totalInvestmentsUSDT: 0, totalInvestmentsBNB: 0, totalUsers: 0, priceUSDT: 0, priceBNB: 0, totalTokensToBEDistributed: 0 });
+      setTotalToken(0);
+      setCurPage(1);
+
+      console.log("Wallet disconnected successfully.");
+      toast.success("Wallet disconnected.");
+    } catch (error) {
+      console.error("Error disconnecting wallet:", error);
+      toast.error("Error disconnecting wallet.");
+    }
+  }
 
   const buyWithUSDT = async (amount: string) => {
     try {
-      // Approve USDT
       const _provider = await getWeb3Provider();
       const _signer = await _provider.getSigner();
       const _userAddress = await _signer.getAddress();
-      const ps = new ethers.Contract(
-        ADDRESSES.PRESALE,
-        PRESALE_ABI,
-        _signer
-      );
-      const ua = new ethers.Contract(
-        ADDRESSES.USDT,
-        ERC20_ABI,
-        _signer
-      )
+      const ps = new ethers.Contract(ADDRESSES.PRESALE, PRESALE_ABI, _signer);
+      const ua = new ethers.Contract(ADDRESSES.USDT, ERC20_ABI, _signer);
 
       setStatus(PurchaseStatus.APPROVING);
-      const parsedAmount = ethers.parseUnits(amount, 18); // USDT uses 6 decimals
+      const parsedAmount = ethers.parseUnits(amount, 18);
       const urlParams = new URLSearchParams(window.location.search);
       const ref = parseInt(urlParams.get('ref') || '0') || 0;
-      const approveTx = await ua.approve(
-        ADDRESSES.PRESALE,
-        parsedAmount
-      );
+
+      const approveTx = await ua.approve(ADDRESSES.PRESALE, parsedAmount);
       await approveTx.wait();
       setStatus(PurchaseStatus.APPROVED);
 
-      // Buy tokens
       setStatus(PurchaseStatus.PURCHASING);
-      const buyTx = await ps.buy(
-        _userAddress,
-        ref, // ref
-        parsedAmount
-      );
+      const buyTx = await ps.buy(_userAddress, ref, parsedAmount);
       await buyTx.wait();
-      // Fetch and update only the necessary data
+
       const ucci = await getUCCInfo(ps);
       const useri = await getUserInfo(ps, _userAddress, 1);
       setUCCInfo(ucci);
       setUserUCCInfo(useri);
 
       setStatus(PurchaseStatus.CONFIRMED);
-
-      toast.success(
-        "Purchase completed successfully!",
-        {
-          duration: 3000,
-          position: "top-right",
-        }
-      );
+      toast.success("Purchase completed successfully!", { duration: 3000, position: "top-right" });
       setStatus(PurchaseStatus.IDLE);
     } catch (error: any) {
       console.log(error.reason);
       setStatus(PurchaseStatus.ERROR);
-      toast.error(
-        error.reason,
-        {
-          duration: 3000,
-          position: "top-right",
-        }
-      );
+      toast.error(error.reason, { duration: 3000, position: "top-right" });
     }
   };
 
@@ -123,50 +112,28 @@ export function usePresale() {
       const _provider = await getWeb3Provider();
       const _signer = await _provider.getSigner();
       const _userAddress = await _signer.getAddress();
-      const ps = new ethers.Contract(
-        ADDRESSES.PRESALE,
-        PRESALE_ABI,
-        _signer
-      );
+      const ps = new ethers.Contract(ADDRESSES.PRESALE, PRESALE_ABI, _signer);
 
       setStatus(PurchaseStatus.PURCHASING);
       const parsedAmount = ethers.parseEther(amount);
-      console.log(parsedAmount);
       const urlParams = new URLSearchParams(window.location.search);
       const ref = parseInt(urlParams.get('ref') || '0') || 0;
-      const buyTx = await ps.buy(
-        _userAddress,
-        ref, // ref
-        0,
-        { value: parsedAmount }
-      );
+
+      const buyTx = await ps.buy(_userAddress, ref, 0, { value: parsedAmount });
       await buyTx.wait();
-      // Fetch and update only the necessary data
+
       const ucci = await getUCCInfo(ps);
       const useri = await getUserInfo(ps, _userAddress, 1);
       setUCCInfo(ucci);
       setUserUCCInfo(useri);
+
       setStatus(PurchaseStatus.CONFIRMED);
-
-      toast.success(
-        "Purchase completed successfully!",
-        {
-          duration: 3000,
-          position: "top-right",
-        }
-      );
+      toast.success("Purchase completed successfully!", { duration: 3000, position: "top-right" });
       setStatus(PurchaseStatus.IDLE);
-
     } catch (error: any) {
       console.log(error.reason);
       setStatus(PurchaseStatus.ERROR);
-      toast.error(
-        error.reason,
-        {
-          duration: 3000,
-          position: "top-right",
-        }
-      );
+      toast.error(error.reason, { duration: 3000, position: "top-right" });
     }
   };
 
@@ -178,7 +145,6 @@ export function usePresale() {
       const priceUSDT = await ps.price();
       const priceBNB = await ps.priceBNB();
       const totalTokensToBEDistributed = await ps.totalTokensToBEDistributed();
-  
 
       setTotalToken(b2i(totalTokensToBEDistributed));
 
@@ -189,72 +155,36 @@ export function usePresale() {
         priceUSDT: b2f(priceUSDT),
         priceBNB: b2f(priceBNB),
         totalTokensToBEDistributed: b2i(totalTokensToBEDistributed)
-      }
-
-    } catch (error: any) {
-      console.error(error);
-      return {
-        totalInvestmentsUSDT: 0, totalInvestmentsBNB: 0, totalUsers: 0, priceUSDT: 0, priceBNB: 0, totalTokensToBEDistributed: 0
       };
+    } catch (error) {
+      console.error(error);
+      return { totalInvestmentsUSDT: 0, totalInvestmentsBNB: 0, totalUsers: 0, priceUSDT: 0, priceBNB: 0, totalTokensToBEDistributed: 0 };
     }
   }
 
   async function getUserInfo(ps: ethers.Contract, ua: string, cpage: number): Promise<UserUCCInfo> {
     try {
-
       const userId = await ps.id(ua);
       const usersInfo = await ps.usersInfo(userId);
       let activityLength = 0;
       let recentActivities = [];
-      try {
-        if (parseInt(userId.toString()) == 0) {
-          recentActivities = [];
-          activityLength = 0;
-        } else {
-          activityLength = await ps.getUserActivitiesLength(userId);
-          recentActivities = await ps.getRecentActivities(userId, cpage);
-        }
-      } catch (error) {
-        recentActivities = [];
-        activityLength = 0;
+
+      if (parseInt(userId.toString()) !== 0) {
+        activityLength = await ps.getUserActivitiesLength(userId);
+        recentActivities = await ps.getRecentActivities(userId, cpage);
       }
 
-
-      return {
-        userId: (userId),
-        usersInfo: userId == 0 ? null : usersInfo,
-        recentActivities, activityLength: parseInt(activityLength.toString())
-      }
-
-    } catch (error: any) {
+      return { userId, usersInfo: userId == 0 ? null : usersInfo, recentActivities, activityLength: parseInt(activityLength.toString()) };
+    } catch (error) {
       console.error(error);
-      return {
-        userId: 0, usersInfo: null, recentActivities: [], activityLength: 0
-      }
+      return { userId: 0, usersInfo: null, recentActivities: [], activityLength: 0 };
     }
   }
 
   const resetStatus = () => setStatus(PurchaseStatus.IDLE);
 
-  return {
-    status,
-    uccInfo,
-    userUCCInfo,
-    userAddress,
-    totalTokens,
-    curPage,
-    setCurPage,
-    buyWithUSDT,
-    buyWithBNB,
-    resetStatus,
-    initWallet
-  };
+  return { status, uccInfo, userUCCInfo, userAddress, totalTokens, curPage, setCurPage, buyWithUSDT, buyWithBNB, resetStatus, initWallet, disconnectWallet };
 }
 
-export function b2i(amt: any): number {
-  return parseInt(formatUnits(amt, 18));
-}
-
-export function b2f(amt: any): number {
-  return parseFloat(formatUnits(amt, 18));
-}
+export function b2i(amt: any): number { return parseInt(formatUnits(amt, 18)); }
+export function b2f(amt: any): number { return parseFloat(formatUnits(amt, 18)); }
