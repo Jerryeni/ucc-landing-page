@@ -2,7 +2,7 @@
 
 import { Progress } from "@/components/ui/progress";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { SUPPORTED_TOKENS } from "@/lib/constants";
@@ -50,14 +50,23 @@ export function TokenProgress({
     const [amount, setAmount] = useState("");
     const { status, buyWithUSDT, buyWithBNB } = usePresale();
     const [showActivities, setShowActivities] = useState(false);
-    const params = new URLSearchParams(window.location.search);
-    const ref = parseInt(params.get("ref") || "0") || 0;
+    // const params = new URLSearchParams(window.location.search);
+    // const ref = parseInt(params.get("ref") || "0") || 0;
     // console.log(status);
     const handleAmountChange = (value: string) => {
         if (value === "" || /^\d*\.?\d*$/.test(value)) {
             setAmount(value);
         }
     };
+
+    const [ref, setRef] = useState(0);
+
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const params = new URLSearchParams(window.location.search);
+            setRef(parseInt(params.get("ref") || "0") || 0);
+        }
+    }, []);
     // console.log(  `{tokenUSDTPrice}: ${tokenUSDTPrice},
     //   {tokenBNBPrice}: ${tokenBNBPrice},
     //   {tokensSold}: ${tokensSold},
@@ -76,7 +85,7 @@ export function TokenProgress({
             const numAmount = parseFloat(inputAmount) || 0;
             return formatCurrency(
                 numAmount /
-                    (selectedToken === "USDT" ? tokenUSDTPrice : tokenBNBPrice),
+                (selectedToken === "USDT" ? tokenUSDTPrice : tokenBNBPrice),
             );
         },
         [selectedToken, tokenUSDTPrice, tokenBNBPrice],
@@ -216,7 +225,7 @@ export function TokenProgress({
                                 value={
                                     amount ? calculateTokenAmount(amount) : ""
                                 }
-                                onChange={() => {}}
+                                onChange={() => { }}
                                 token="UCC"
                                 tokenIcon="/images/icon.png"
                                 readOnly
@@ -224,7 +233,6 @@ export function TokenProgress({
                         </>
                     )}
                 </div>
-                <span>UPLINE ID: {ref}</span>
 
                 <PurchaseButton
                     status={status}
@@ -237,6 +245,8 @@ export function TokenProgress({
                         status == "PURCHASING"
                     }
                 />
+                <span className="mt-2 text-[#F0B90B]/90 text-sm">SPONSORED ID: {ref}</span>
+
             </div>
 
             <div className="border-t border-[#F0B90B]/20 pt-6">

@@ -65,7 +65,7 @@ export function Navbar() {
                 className="bg-primary !rounded-xl hover:bg-secondary hover:text-white hover:border hover:border-primary h-10 text-sm text-black flex items-center gap-2"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
               >
-                {userAddress ? shortenAddress(userAddress) : "Connect Wallet"}
+                {userAddress ? "Disconnect Wallet" : "Connect Wallet"}
                 <ChevronDown className="h-4 w-4" />
               </Button>
 
