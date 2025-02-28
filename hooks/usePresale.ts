@@ -95,7 +95,7 @@ export function usePresale() {
         }
     }
 
-    const buyWithUSDT = async (amount: string) => {
+    const buyWithUSDT = async (amount: string, ref: number) => {
         try {
             const _provider = await getWeb3Provider();
             const _signer = await _provider.getSigner();
@@ -111,8 +111,6 @@ export function usePresale() {
             const parsedAmount = ethers.parseUnits(amount, 18);
             // const urlParams = new URLSearchParams(window.location.search);
             // const ref = parseInt(urlParams.get('ref') || '0') || 0;
-            const params = new URLSearchParams(window.location.search);
-            const ref = parseInt(params.get("ref") || "0") || 0;
 
             const approveTx = await ua.approve(ADDRESSES.PRESALE, parsedAmount);
             await approveTx.wait();
@@ -143,7 +141,7 @@ export function usePresale() {
         }
     };
 
-    const buyWithBNB = async (amount: string) => {
+    const buyWithBNB = async (amount: string, ref: number) => {
         try {
             const _provider = await getWeb3Provider();
             const _signer = await _provider.getSigner();
@@ -156,8 +154,8 @@ export function usePresale() {
 
             setStatus(PurchaseStatus.PURCHASING);
             const parsedAmount = ethers.parseEther(amount);
-            const urlParams = new URLSearchParams(window.location.search);
-            const ref = parseInt(urlParams.get("ref") || "0") || 0;
+            // const urlParams = new URLSearchParams(window.location.search);
+            // const ref = parseInt(urlParams.get("ref") || "0") || 0;
 
             const buyTx = await ps.buy(_userAddress, ref, 0, {
                 value: parsedAmount,
